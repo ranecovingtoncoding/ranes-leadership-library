@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1623">
+<title>Rane’s Library of Better Questions</title>
+<style>
+:root {
+  --night: #091422;
+  --deep-night: #050b13;
+  --ink: #20332b;
+  --cream: #faf2e4;
+  --paper: #fffdf7;
+  --gold: #e1b65d;
+  --warm-gold: #f6d990;
+  --moss: #4d6f5b;
+  --sage: #b1c1a8;
+  --blue: #506f87;
+  --plum: #73546e;
+  --rust: #ad6047;
+  --wood: #573727;
+  --wood-dark: #2d1a11;
+  --danger: #9a443e;
+  --shadow: rgba(0, 0, 0, .3);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--deep-night); }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+
+.notice {
+  position: fixed;
+  z-index: 100;
+  right: 18px;
+  bottom: 18px;
+  max-width: 340px;
+  padding: 13px 16px;
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff8e8;
+  background: #1a382d;
+  border-radius: 5px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.3);
+  line-height: 1.45;
+  animation: slide-in .35s ease;
+}
+
+.notice.error { background: #6d2e2c; }
+
+.auth-page, .setup-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  color: #f9f1df;
+  background:
+    radial-gradient(circle at 72% 14%, rgba(230,184,92,.12), transparent 20rem),
+    radial-gradient(ellipse at 50% 100%, #294a38 0%, #10251c 45%, transparent 73%),
+    linear-gradient(180deg, #0e1c32, #071019);
+}
+
+.auth-card, .setup-card {
+  width: min(495px, 100%);
+  padding: 42px;
+  color: var(--ink);
+  background: #fffaf0;
+  border: 1px solid #e3d7c1;
+  border-radius: 8px;
+  box-shadow: 0 28px 75px rgba(0,0,0,.36);
+}
+
+.auth-card h1, .setup-card h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 8vw, 4.2rem);
+  line-height: .86;
+  letter-spacing: -.07em;
+}
+
+.eyebrow {
+  margin: 0 0 17px;
+  color: var(--rust);
+  font-family: Arial, sans-serif;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.auth-card p, .setup-card p { line-height: 1.65; }
+.auth-card form { margin-top: 27px; }
+
+.field-label {
+  display: block;
+  margin: 0 0 7px;
+  color: var(--moss);
+  font-family: Arial, sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+input, textarea, select {
+  width: 100%;
+  border: 1px solid #d9ccb7;
+  color: var(--ink);
+  background: #fffdf8;
+  border-radius: 3px;
+  outline: 0;
+}
+
+input, select { min-height: 43px; padding: 10px 12px; }
+textarea { min-height: 128px; padding: 11px 12px; resize: vertical; line-height: 1.5; }
+input:focus, textarea:focus, select:focus { border-color: var(--moss); box-shadow: 0 0 0 3px rgba(77,111,91,.14); }
+
+.primary-button, .secondary-button, .danger-button {
+  min-height: 42px;
+  padding: 10px 14px;
+  border-radius: 3px;
+  font-family: Arial, sans-serif;
+  font-size: .73rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.primary-button { border: 1px solid #334f40; color: #fff8e7; background: var(--moss); }
+.secondary-button { border: 1px solid #557162; color: #315141; background: transparent; }
+.danger-button { border: 1px solid #9a443e; color: #fff5ed; background: var(--danger); }
+.primary-button:hover, .secondary-button:hover, .danger-button:hover { filter: brightness(1.08); }
+.primary-button:disabled, .secondary-button:disabled { opacity: .55; cursor: not-allowed; }
+
+.form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 17px; }
+.muted { color: #68756b; font-size: .9rem; }
+.fine-print { margin-top: 18px; color: #78817b; font-size: .8rem; }
+
+/* Exterior entrance */
+.entry {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  color: #fff8e9;
+  background:
+    linear-gradient(180deg, rgba(6,13,25,.07), rgba(5,15,16,.2)),
+    var(--exterior-image, radial-gradient(circle at 50% 74%, rgba(235,182,81,.22), transparent 17rem), radial-gradient(ellipse at 50% 110%, #294534 0%, #12281f 45%, transparent 72%), linear-gradient(180deg, #0c1830 0%, #101d30 52%, #081117 100%));
+  background-size: cover;
+  background-position: center;
+}
+
+.entry::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .76;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 10% 18%, #fff 0 1px, transparent 1.7px),
+    radial-gradient(circle at 23% 37%, #f9e9b0 0 1.5px, transparent 2px),
+    radial-gradient(circle at 35% 11%, #fff 0 1px, transparent 1.7px),
+    radial-gradient(circle at 48% 26%, #fff 0 1px, transparent 1.7px),
+    radial-gradient(circle at 68% 15%, #f4e1a4 0 1.5px, transparent 2px),
+    radial-gradient(circle at 79% 42%, #fff 0 1px, transparent 1.7px),
+    radial-gradient(circle at 91% 23%, #fff 0 1px, transparent 1.7px);
+  animation: shimmer 4.5s ease-in-out infinite alternate;
+}
+
+.entry-copy {
+  z-index: 2;
+  width: min(715px, 87vw);
+  margin-top: -260px;
+  text-align: center;
+}
+
+.entry .eyebrow { color: var(--warm-gold); }
+.entry h1 {
+  margin: 0;
+  color: #fff8e9;
+  font-size: clamp(3rem, 8vw, 6.25rem);
+  line-height: .82;
+  letter-spacing: -.075em;
+  text-shadow: 0 4px 18px rgba(0,0,0,.42);
+}
+
+.entry-copy p:last-of-type {
+  max-width: 520px;
+  margin: 20px auto 0;
+  color: #e2eade;
+  font-size: 1.04rem;
+  line-height: 1.62;
+}
+
+.moon {
+  position: absolute;
+  z-index: 1;
+  top: 9vh;
+  right: 12vw;
+  width: min(16vw, 148px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #f8eac0;
+  box-shadow: 0 0 40px rgba(255,236,178,.34);
+}
+
+.moon::after {
+  content: "";
+  position: absolute;
+  top: -11%;
+  left: 24%;
+  width: 96%;
+  height: 96%;
+  border-radius: 50%;
+  background: #0d1a2d;
+}
+
+.library-illustration {
+  position: absolute;
+  z-index: 1;
+  bottom: -10px;
+  width: min(930px, 96vw);
+  height: min(535px, 58vh);
+  filter: drop-shadow(0 22px 22px rgba(0,0,0,.3));
+}
+
+.library-illustration svg { width: 100%; height: 100%; overflow: visible; }
+
+.door {
+  position: absolute;
+  z-index: 4;
+  bottom: 10.2%;
+  left: 50%;
+  width: clamp(72px, 10.6vw, 110px);
+  height: clamp(132px, 19vw, 200px);
+  border: 2px solid #23160f;
+  border-radius: 56px 56px 5px 5px;
+  transform: translateX(-50%);
+  color: transparent;
+  background:
+    radial-gradient(circle at 72% 52%, #f4ce69 0 3px, transparent 4px),
+    linear-gradient(90deg, rgba(255,255,255,.09) 0 4%, transparent 4% 91%, rgba(0,0,0,.18) 91%),
+    linear-gradient(90deg, #54321f 0 33%, #704327 33% 66%, #4a291b 66% 100%);
+  box-shadow: inset 0 0 15px rgba(0,0,0,.3), 0 0 18px rgba(242,181,72,.26);
+}
+
+.door::after {
+  content: "Enter";
+  position: absolute;
+  bottom: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fae9bb;
+  font-family: Arial, sans-serif;
+  font-size: .69rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0,0,0,.85);
+}
+
+.door:hover, .door:focus-visible { outline: 2px solid var(--warm-gold); outline-offset: 8px; box-shadow: inset 0 0 15px rgba(0,0,0,.3), 0 0 34px rgba(245,202,104,.62); }
+.door.open { animation: open-door .85s cubic-bezier(.2,.8,.25,1) forwards; }
+.entry-note { position: absolute; z-index: 3; bottom: 19px; color: rgba(246,239,218,.72); font-size: .8rem; font-style: italic; }
+
+/* Interior */
+.interior {
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 7% 7%, rgba(234,196,112,.26), transparent 23rem),
+    radial-gradient(circle at 95% 20%, rgba(111,145,132,.24), transparent 25rem),
+    linear-gradient(180deg, #f5ecdc 0%, #e9dcc6 100%);
+}
+
+.interior-header {
+  min-height: 190px;
+  position: relative;
+  overflow: hidden;
+  padding: 31px 8vw;
+  color: #f9f1df;
+  background:
+    radial-gradient(circle at 25% 18%, rgba(244,208,132,.16), transparent 19rem),
+    linear-gradient(120deg, #13251f, #365444 54%, #1d342c);
+}
+
+.interior-header::after {
+  content: "✦";
+  position: absolute;
+  right: 7vw;
+  top: -43px;
+  color: rgba(255,255,255,.12);
+  font-size: 12rem;
+}
+
+.top-actions { position: absolute; z-index: 3; top: 25px; right: 8vw; display: flex; gap: 9px; }
+.top-actions button { border: 1px solid rgba(246,226,177,.72); color: #f8eac1; background: rgba(0,0,0,.14); }
+.interior-header .eyebrow { color: var(--warm-gold); }
+.interior-header h2 { max-width: 730px; margin: 0; font-size: clamp(2.45rem, 5vw, 4.5rem); letter-spacing: -.07em; line-height: .88; }
+.interior-header p:last-child { max-width: 615px; margin: 18px 0 0; color: #dce5dc; line-height: 1.55; }
+
+.library-content { max-width: 1340px; margin: 0 auto; padding: 48px 7vw 84px; }
+.library-instruction { margin: 0 auto 29px; color: #657467; font-style: italic; text-align: center; }
+
+.shelf-section {
+  margin-bottom: 25px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: rgba(255,253,247,.48);
+  box-shadow: 0 13px 30px rgba(93,67,37,.09);
+}
+
+.shelf-heading { display: flex; gap: 14px; align-items: baseline; padding: 14px 20px 12px; background: rgba(255,253,247,.72); }
+.shelf-number { color: var(--rust); font-family: Arial, sans-serif; font-size: .67rem; font-weight: 800; letter-spacing: .1em; }
+.shelf-heading h3 { margin: 0; font-size: clamp(1.1rem, 2vw, 1.45rem); letter-spacing: -.025em; }
+.shelf-scroll { overflow-x: auto; padding: 12px 14px 0; }
+
+.wood-shelf {
+  min-width: 820px;
+  height: 204px;
+  position: relative;
+  display: flex;
+  align-items: end;
+  gap: 11px;
+  padding: 0 42px 27px;
+  background:
+    linear-gradient(to bottom, transparent 0 79%, rgba(101,64,41,.94) 79% 86%, #301b11 86% 90%, #805130 90% 100%),
+    var(--shelf-texture, none);
+  background-size: cover;
+  box-shadow: inset 0 -8px 0 rgba(0,0,0,.17);
+}
+
+.wood-shelf::after { content: ""; position: absolute; inset: 8px 10px 20px; border: 1px solid rgba(98,62,35,.13); pointer-events: none; }
+
+.spine, .reading-book {
+  position: relative;
+  z-index: 1;
+  padding: 10px 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  border-radius: 3px 7px 2px 2px;
+  color: #fffdf7;
+  background: var(--book);
+  background-image: var(--cover-image, none);
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 4px 0 rgba(255,255,255,.16), 5px 5px 8px rgba(37,20,11,.25);
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+
+.spine { width: var(--book-width); height: var(--book-height); }
+.spine::before, .reading-book::before { content: ""; position: absolute; top: 8px; bottom: 8px; left: 3px; width: 2px; background: rgba(255,255,255,.28); }
+.spine:hover, .reading-book:hover, .spine:focus-visible, .reading-book:focus-visible { z-index: 2; transform: translateY(-15px) rotate(-1.6deg); box-shadow: inset 4px 0 rgba(255,255,255,.22), 8px 17px 19px rgba(37,20,11,.29); outline: 3px solid #f6d896; outline-offset: 3px; }
+.spine span, .reading-book span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: .78rem; font-weight: 700; letter-spacing: .015em; text-shadow: 0 1px 2px rgba(0,0,0,.45); }
+.spine small, .reading-book small { position: absolute; bottom: 8px; font-family: Arial, sans-serif; font-size: .48rem; letter-spacing: .1em; opacity: .8; }
+
+.candle { width: 30px; height: 77px; position: relative; margin-left: 7px; background: linear-gradient(90deg, #eee0af, #fff8d3 52%, #cfc183); box-shadow: 0 0 17px rgba(247,210,116,.24); }
+.candle::before { content: ""; position: absolute; top: -25px; left: 8px; width: 15px; height: 30px; border-radius: 50% 50% 45% 45%; background: linear-gradient(#fff9bf, #f5a93e 63%, #d56a25); box-shadow: 0 0 24px rgba(255,195,73,.7); animation: flicker 1.7s ease-in-out infinite alternate; }
+
+.reading-alcove {
+  margin-top: 48px;
+  padding: 31px 25px 0;
+  overflow: hidden;
+  border-radius: 9px;
+  color: #f9f0dd;
+  background: radial-gradient(circle at 82% 8%, rgba(236,191,92,.16), transparent 20rem), linear-gradient(145deg, #142720, #294637 63%, #1b3028);
+  box-shadow: 0 18px 32px rgba(42,37,27,.2);
+}
+
+.reading-intro { display: grid; grid-template-columns: .78fr 1.22fr; gap: 35px; max-width: 1000px; }
+.reading-alcove h3 { margin: 0; color: var(--warm-gold); font-size: clamp(2rem, 4vw, 3.5rem); line-height: .9; letter-spacing: -.065em; }
+.reading-alcove p { margin: 0; color: #dce6dc; line-height: 1.63; }
+.reading-scroll { overflow-x: auto; margin-top: 25px; }
+.reading-shelf { min-width: 990px; height: 236px; display: flex; align-items: end; gap: 8px; padding: 0 35px 29px; background: linear-gradient(to bottom, transparent 0 78%, #654029 78% 86%, #29170e 86% 90%, #815231 90% 100%); }
+.reading-book { width: var(--book-width); height: var(--book-height); }
+.reading-book span { font-size: .7rem; }
+.reading-book small { font-size: .43rem; }
+
+/* Open-book animation */
+.book-dialog { width: min(1100px, calc(100% - 24px)); max-width: none; padding: 0; border: 0; background: transparent; overflow: visible; box-shadow: none; }
+.book-dialog::backdrop { background: rgba(5,12,20,.87); backdrop-filter: blur(4px); }
+.close-book { position: fixed; z-index: 20; top: 22px; right: 24px; width: 39px; height: 39px; border: 1px solid rgba(248,232,187,.78); border-radius: 50%; color: #f8ebc9; background: rgba(12,21,29,.5); font-size: 1.25rem; }
+.book-stage { width: 100%; min-height: min(670px, 84vh); display: grid; place-items: center; perspective: 1700px; }
+.open-book { width: min(1030px, 94vw); min-height: min(615px, 78vh); position: relative; display: grid; grid-template-columns: 1fr 1fr; filter: drop-shadow(0 30px 32px rgba(0,0,0,.5)); }
+
+.page {
+  min-height: min(615px, 78vh);
+  position: relative;
+  overflow-y: auto;
+  padding: clamp(28px, 5vw, 58px);
+  color: #23342d;
+  background:
+    linear-gradient(90deg, rgba(155,124,75,.06), transparent 14%, transparent 84%, rgba(155,124,75,.06)),
+    var(--paper-texture, repeating-linear-gradient(0deg, transparent 0 31px, rgba(99,75,42,.035) 32px)),
+    #fffaf0;
+  background-size: cover;
+}
+
+.page.left { border-radius: 8px 0 0 8px; box-shadow: inset -15px 0 23px rgba(85,58,28,.08); }
+.page.right { border-radius: 0 8px 8px 0; box-shadow: inset 15px 0 23px rgba(85,58,28,.08); }
+.page.left::after { content: ""; position: absolute; top: 0; right: -4px; width: 8px; height: 100%; background: linear-gradient(90deg, rgba(41,31,20,.17), rgba(255,255,255,.45), rgba(41,31,20,.12)); }
+.page-label { margin: 0 0 20px; color: var(--rust); font-family: Arial, sans-serif; font-size: .66rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.page h2 { margin: 0 0 27px; color: var(--ink); font-size: clamp(2rem, 4.8vw, 4rem); line-height: .9; letter-spacing: -.07em; }
+.page h4 { margin: 0 0 9px; color: var(--moss); font-family: Arial, sans-serif; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; }
+.page p { margin: 0 0 17px; line-height: 1.67; font-size: 1rem; }
+.principle-chip { display: inline-block; margin: 4px 0 23px; padding: 8px 10px; border-radius: 2px; color: #edf3ea; background: var(--moss); font-family: Arial, sans-serif; font-size: .69rem; line-height: 1.35; }
+.quote { margin: 25px 0 !important; padding: 16px; border-left: 4px solid var(--gold); color: #425447; background: #f6efd9; font-size: 1.1rem !important; font-style: italic; }
+
+.turn-page {
+  position: absolute;
+  z-index: 10;
+  inset: 0 50% 0 0;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  border-radius: 8px 2px 2px 8px;
+  color: #fff7e7;
+  background: linear-gradient(105deg, rgba(255,255,255,.12), transparent 45%), var(--book-cover, #5a725e);
+  box-shadow: inset -6px 0 rgba(255,255,255,.12), 7px 10px 18px rgba(0,0,0,.35);
+  transform-origin: right center;
+  text-align: center;
+  backface-visibility: hidden;
+}
+
+.turn-page::before { content: ""; position: absolute; inset: 13px; border: 1px solid rgba(255,244,214,.38); }
+.turn-page span { position: relative; max-width: 230px; font-size: clamp(1.45rem, 3vw, 2.4rem); font-weight: 700; line-height: .95; letter-spacing: -.045em; }
+.turn-page small { position: absolute; bottom: 28px; font-family: Arial, sans-serif; font-size: .61rem; letter-spacing: .15em; text-transform: uppercase; }
+.book-dialog.opening .turn-page { animation: turn-cover .92s cubic-bezier(.2,.78,.21,1) forwards; }
+.book-dialog.opening .page { animation: reveal-pages .5s .36s ease both; }
+
+/* Administrator desk */
+.admin-page { min-height: 100vh; padding: 32px 7vw 70px; color: var(--ink); background: #eee1ca; }
+.admin-top { max-width: 1150px; display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin: 0 auto 30px; }
+.admin-top h1 { margin: 0; font-size: clamp(2.3rem, 6vw, 4.2rem); line-height: .88; letter-spacing: -.07em; }
+.admin-top p { max-width: 580px; line-height: 1.58; }
+.admin-grid { max-width: 1150px; margin: 0 auto; display: grid; grid-template-columns: .74fr 1.26fr; gap: 23px; }
+.admin-card { padding: 24px; background: #fffaf0; border: 1px solid #dfd1bc; border-radius: 7px; box-shadow: 0 13px 28px rgba(91,66,36,.1); }
+.admin-card h2 { margin: 0 0 18px; font-size: 1.55rem; letter-spacing: -.03em; }
+.admin-card h3 { margin: 24px 0 12px; color: var(--moss); font-size: .72rem; font-family: Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.admin-list { display: grid; gap: 9px; max-height: 710px; overflow: auto; }
+.admin-entry { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px; border: 1px solid #e2d5c2; background: #fffdf8; border-radius: 4px; }
+.admin-entry strong { display: block; font-size: .93rem; }
+.admin-entry small { display: block; margin-top: 3px; color: #758178; font-family: Arial, sans-serif; font-size: .64rem; }
+.admin-entry button { border: 1px solid #749180; color: #365846; background: transparent; border-radius: 3px; padding: 6px 8px; font-family: Arial, sans-serif; font-size: .65rem; font-weight: 700; text-transform: uppercase; }
+.field-group { margin-bottom: 15px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+.admin-card details { margin-top: 18px; padding-top: 15px; border-top: 1px solid #e6d9c6; }
+.admin-card summary { color: var(--moss); cursor: pointer; font-family: Arial, sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.preview-thumb { width: 100%; max-height: 135px; margin-top: 11px; object-fit: cover; border: 1px solid #dacbb5; border-radius: 4px; }
+.delete-row { display: flex; justify-content: flex-end; margin-top: 28px; }
+
+@keyframes shimmer { from { opacity: .45; } to { opacity: .85; } }
+@keyframes flicker { from { transform: scaleX(.86) rotate(-3deg); opacity: .86; } to { transform: scaleX(1.08) rotate(3deg); opacity: 1; } }
+@keyframes open-door { to { transform: translateX(-50%) rotateY(-104deg); opacity: .12; } }
+@keyframes turn-cover { 0% { transform: rotateY(0deg); opacity: 1; } 65% { opacity: 1; } 100% { transform: rotateY(-170deg); opacity: 0; } }
+@keyframes reveal-pages { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: scale(1); } }
+@keyframes slide-in { from { transform: translateY(18px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+@media (max-width: 800px) {
+  .entry-copy { margin-top: -230px; }
+  .library-illustration { width: 110vw; height: 51vh; }
+  .moon { right: 9vw; }
+  .reading-intro, .admin-grid { grid-template-columns: 1fr; gap: 19px; }
+  .top-actions { right: 5vw; }
+  .interior-header { padding-left: 7vw; padding-right: 7vw; }
+  .top-actions button { font-size: .61rem; }
+  .open-book { grid-template-columns: 1fr; width: min(570px, 94vw); }
+  .book-stage { min-height: 0; margin: 50px 0 22px; }
+  .page { min-height: auto; padding: 36px 29px; }
+  .page.left { border-radius: 8px 8px 0 0; }
+  .page.right { border-radius: 0 0 8px 8px; }
+  .page.left::after { display: none; }
+  .turn-page { inset: 0; border-radius: 8px; transform-origin: left center; }
+  .book-dialog.opening .turn-page { animation-name: fade-cover; }
+  .close-book { top: 14px; right: 14px; }
+  .field-row { grid-template-columns: 1fr; gap: 0; }
+  .admin-top { flex-direction: column; }
+}
+
+@keyframes fade-cover { 0% { opacity: 1; transform: scale(1); } 88% { opacity: 1; } 100% { opacity: 0; transform: scale(.98); } }
+
+/* One-file edition: keep every title inside its own book spine. */
+.spine, .reading-book { overflow: hidden; isolation: isolate; }
+.spine span, .reading-book span {
+  max-height: calc(100% - 22px);
+  overflow: hidden;
+  padding: 5px 1px;
+  font-size: var(--spine-size, .62rem);
+  line-height: 1.08;
+  text-overflow: clip;
+}
+.spine small, .reading-book small { display: none; }
+.spine::after, .reading-book::after {
+  content: ""; position: absolute; z-index: -1; inset: 8px 7px;
+  border-top: 1px solid rgba(255,239,184,.46);
+  border-bottom: 1px solid rgba(255,239,184,.46);
+}
+.book-editor { display: grid; gap: 12px; }
+.book-editor label { display: grid; gap: 5px; color: #4d6f5b; font-family: Arial, sans-serif; font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.book-editor input, .book-editor textarea { width: 100%; border: 1px solid #d9ccb7; border-radius: 3px; padding: 9px; color: #20332b; background: #fffdf8; font: 16px Georgia, serif; letter-spacing: normal; text-transform: none; }
+.book-editor textarea { min-height: 160px; resize: vertical; line-height: 1.5; }
+.edit-book { position: fixed; z-index: 20; top: 22px; right: 76px; min-height: 39px; padding: 0 13px; border: 1px solid rgba(248,232,187,.78); border-radius: 20px; color: #f8ebc9; background: rgba(12,21,29,.5); font: 700 .65rem Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.editor-note { margin: 0 0 12px; color: #68756b; font: .82rem/1.45 Arial, sans-serif; }
+
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+
+const shelves = [
+  { id: 'self-awareness', number: '01', title: 'Cultivate Self-Awareness, Personal Agility & Growth' },
+  { id: 'right-problems', number: '02', title: 'Actively Find & Formulate the Right Problems' },
+  { id: 'vision', number: '03', title: 'Craft & Share a Compelling Vision' },
+  { id: 'ownership', number: '04', title: 'Deliver Results with Strong Personal Ownership' },
+  { id: 'resources', number: '05', title: 'Identify & Align Resources to Generate Value' },
+  { id: 'value', number: '06', title: 'Maintain a Relentless Focus on Creating Value' }
+];
+
+const starterEntries = [
+  {
+    shelf: 'self-awareness', kind: 'leadership', title: 'Classmate Feedback', context: 'Learning how I come across', principle: 'Cultivate Self-Awareness, Personal Agility & Growth', cover_color: '#506f5d', sort_order: 1,
+    left_note: 'At the beginning of the semester, I thought I was pretty self-aware. I knew I was driven, emotional, stubborn about my ideas, and someone who cares a lot about doing things well. Trailblazers showed me there was more to it than knowing my own intentions.',
+    reflection: 'One of my classmates told me I could seem intimidating and unapproachable. It was hard to hear because it did not match who I am with people who know me well. It made me realize that I keep my more silly, open, caring side guarded at first. Since then, I have tried to start more conversations, ask people questions, and hear feedback without immediately explaining myself. I need to pay attention when my intent and my impact do not match.'
+  },
+  {
+    shelf: 'self-awareness', kind: 'leadership', title: 'AI Curriculum Activity', context: 'Using the tool without losing my judgment', principle: 'Cultivate Self-Awareness, Personal Agility & Growth', cover_color: '#72536d', sort_order: 2,
+    left_note: 'I study Information Systems and AI Business Strategy, so I care about knowing how to use AI well. While I was building curriculum for the class I teach, I spent a lot of time trying to get AI to give me the perfect activity.',
+    reflection: 'The activity I had thought of from the beginning was better because I knew the students, where they were, and what would actually work in that room. AI did not have that context. It can help me organize, research, and get unstuck. It cannot make the call for me. I do not want to hand off the creative part of my work because a tool can make something faster.'
+  },
+  {
+    shelf: 'right-problems', kind: 'leadership', title: 'Ken Garff Scope', context: 'Choosing the problem we could actually help solve', principle: 'Actively Find & Formulate the Right Problems', cover_color: '#b06149', sort_order: 1,
+    left_note: 'At the start of our Ken Garff for Good project, my team thought we could solve everything. We were talking about student motivation, school implementation, scholarships, career exploration, and more. There were so many directions that it became hard to tell what would really help.',
+    reflection: 'We finally narrowed our focus to the administrator experience. The question became: what would make rollout and ongoing use better for the people at schools who make the program possible? We do not have our final recommendation yet, but the project feels much clearer. I learned that strategy often means choosing a smaller, more specific problem instead of trying to make an idea cover everything.'
+  },
+  {
+    shelf: 'right-problems', kind: 'leadership', title: 'Blog Posts', context: 'The internship I would approach differently now', principle: 'Actively Find & Formulate the Right Problems', cover_color: '#53768b', sort_order: 2,
+    left_note: 'During my Goff Explorers internship, I wrote SEO blog posts for a therapy center. At first, I treated the assignment like a weekly checklist. I picked a topic, wrote the blog, and moved on.',
+    reflection: 'When I brought an assignment to office hours, my professor pushed me to make a plan for the full semester and explain why each topic belonged in it. If I did it again, I would start with more questions about the audience, what people were searching for, and how the therapy center used content across newsletters and social media. I had completed the work. I had not thought enough about the result it was supposed to create.'
+  },
+  {
+    shelf: 'vision', kind: 'leadership', title: 'Disney Interview', context: 'Talking about work that does not have one clear answer', principle: 'Craft & Share a Compelling Vision', cover_color: '#c79543', sort_order: 1,
+    left_note: 'Preparing for my Disney interview made me look back at Trailblazers differently. I had to explain a project that was still moving, with no obvious answer and a team that had to figure things out as we went.',
+    reflection: 'I realized I had a better story when I focused on the questions we asked and why the project mattered to schools and students. I was not trying to give a polished class-project answer. I could explain the uncertainty, the choices we made, and what we learned from narrowing our focus. Trailblazers gave me a real example of the kind of product work I want to do.'
+  },
+  {
+    shelf: 'vision', kind: 'leadership', title: 'Administrator Interviews', context: 'Listening before deciding what help looks like', principle: 'Craft & Share a Compelling Vision', cover_color: '#4f6d5b', sort_order: 2,
+    left_note: 'Trailblazers changed how I think about community impact. Caring about a cause and putting in effort are not enough if the work does not fit the people it is supposed to help.',
+    reflection: 'It would have been easy to make assumptions about why students do or do not feel ready for college. The administrator interviews kept bringing us back to the real workflows, time limits, and differences between schools. That is the kind of listening I want to bring to community work after college too. I do not want to wait until I have a bigger title or more free time before I contribute.'
+  },
+  {
+    shelf: 'ownership', kind: 'leadership', title: 'DEA Demo', context: 'Preparing for a high-stakes customer conversation', principle: 'Deliver Results with Strong Personal Ownership', cover_color: '#755047', sort_order: 1,
+    left_note: 'During my Lucid internship, a sales demo for the DEA, our company’s largest government account, was accidentally assigned to me while my manager was away. Once my manager said he was comfortable with me continuing, I decided to take it seriously.',
+    reflection: 'I talked to customer success managers who knew the account, built a slide deck, practiced my five-minute pitch, and met with mentors and my manager. The demo went well. More importantly, I knew I had prepared for it myself. Ownership means being reliable when something important lands in front of me. It means doing what I can with the information and support I have.'
+  },
+  {
+    shelf: 'ownership', kind: 'leadership', title: 'Workplan Version 2', context: 'The reset our team needed', principle: 'Deliver Results with Strong Personal Ownership', cover_color: '#4f7285', sort_order: 2,
+    left_note: 'Our Trailblazers team struggled early on. We divided work poorly, disagreed often, and did not have clear roles. It was hard to tell who was taking initiative on what. Creating version two of our workplan was a turning point.',
+    reflection: 'The new workplan showed what each person was taking on, when it was happening, and how it fit into the project. That gave us a better way to talk about what was not working. I also had to admit I was part of the tension. I was so focused on solving the problem that I could become overbearing. When a team gets stuck, I need to ask more questions before I take over.'
+  },
+  {
+    shelf: 'resources', kind: 'leadership', title: 'Canva Graphics', context: 'Using a skill my supervisor did not know I had', principle: 'Identify & Align Resources to Generate Value', cover_color: '#9d624d', sort_order: 1,
+    left_note: 'While I was writing blog posts in Explorers, I realized my supervisor did not know I had started Rane Design Co. in high school or that I could make graphics in Canva. I asked if I could create visuals for each blog post.',
+    reflection: 'My supervisor was excited because the graphics could go in newsletters and make the posts easier to share. That changed how I saw the assignment. The blogs became part of a larger communication system. I learned to speak up about skills I already have instead of waiting for someone to guess what I can contribute.'
+  },
+  {
+    shelf: 'resources', kind: 'leadership', title: 'Lucid Office Hours', context: 'Sharing product knowledge with sales reps', principle: 'Identify & Align Resources to Generate Value', cover_color: '#526e5b', sort_order: 2,
+    left_note: 'At Lucid, I realized I could help sales reps with product knowledge and teaching. I started office hours where reps could ask questions, learn new features, and feel more confident talking with customers.',
+    reflection: 'Office hours were outside the original scope of my internship, but they felt useful. They also gave newer reps a place to ask questions without worrying that they were slowing everyone down. Explorers had already taught me to look beyond the first task I am assigned. That lesson made it easier to take this on at Lucid.'
+  },
+  {
+    shelf: 'value', kind: 'leadership', title: 'Team Feedback', context: 'Learning to think with people instead of around them', principle: 'Maintain a Relentless Focus on Creating Value', cover_color: '#765269', sort_order: 1,
+    left_note: 'Trailblazers felt different from normal group work. In a lot of classes, people divide tasks, coordinate over text, and combine everything at the end. That did not work here because the direction was not obvious.',
+    reflection: 'We had to question each other’s ideas, talk through uncertainty, and understand why people were approaching the same problem differently. I can get attached to an idea when I think it is right. This project made me pay more attention to that. I want people I work with to feel like I helped them think clearly and contribute fully, not like I just pushed the project forward.'
+  },
+  {
+    shelf: 'value', kind: 'leadership', title: 'Future Product Manager', context: 'The kind of work I want to do', principle: 'Maintain a Relentless Focus on Creating Value', cover_color: '#486b5a', sort_order: 2,
+    left_note: 'I want to be a product manager who stays close to the real problem and the people dealing with it. I care about succeeding, but I do not want career goals to crowd out creativity, mentorship, education access, or the causes I care about.',
+    reflection: 'My plan is to keep developing as a strategist, make time for the values that matter to me, and use technology in a way I can stand behind. I want to keep giving back through post-secondary education and mentorship. I am excited by AI and product work. I also want the work I choose to leave people and communities better than I found them.'
+  },
+  {
+    shelf: 'self-awareness', kind: 'leadership', title: 'Leaving Basketball', context: 'Knowing when a chapter has done its job', principle: 'Cultivate Self-Awareness, Personal Agility & Growth', cover_color: '#597282', sort_order: 3,
+    left_note: 'Basketball was a huge part of my life for six years. I spent late nights working on free throws with my dad, went to leadership camps, and pushed myself hard enough to finally earn a varsity spot. Deciding not to play my senior year was not an easy decision.',
+    reflection: 'I was proud of the work ethic basketball gave me, but I also knew the environment was no longer helping me become the person I wanted to be. Leaving was not the same as quitting. It was a choice to make room for what came next. That experience taught me to be honest about when persistence is meaningful and when it is time to pivot.'
+  },
+  {
+    shelf: 'vision', kind: 'leadership', title: 'Softball Team Captain', context: 'Helping teammates feel seen', principle: 'Craft & Share a Compelling Vision', cover_color: '#a95743', sort_order: 3,
+    left_note: 'I joined slowpitch softball because the team needed enough people to have a season. I had never held a mitt before, but after one year I became an All-Star shortstop and team captain. The part I cared about most was how the team felt to be on.',
+    reflection: 'When practices were not well prepared and teammates were discouraged, I looked for small ways to give the group more energy. I ran the team social media account and featured every teammate, not only the people who got the most attention. I learned that leadership can be practical and personal at the same time. People work harder when they feel like they belong to something and are noticed inside it.'
+  },
+  {
+    shelf: 'resources', kind: 'leadership', title: 'Rane Design Co.', context: 'Turning curiosity into something useful', principle: 'Identify & Align Resources to Generate Value', cover_color: '#7d5675', sort_order: 3,
+    left_note: 'In middle school, I watched calligraphy and bullet-journaling videos for hours, practiced with brush pens, and eventually realized I could make something more from the skill. I opened Rane Design Co. and started selling calligraphy, vinyl projects, and design work.',
+    reflection: 'The first order was a four-dollar Valentine template I made for my little sister. It felt much bigger because it showed me I could take an interest, learn the tools, and build something people actually wanted. Later, I used that same skill for nonprofits, school groups, and community projects. I still come back to that lesson: creativity becomes more valuable when I connect it to a real person or need.'
+  },
+  {
+    shelf: 'ownership', kind: 'leadership', title: 'Point Guard College', context: 'Learning to lead before I felt ready', principle: 'Deliver Results with Strong Personal Ownership', cover_color: '#627348', sort_order: 3,
+    left_note: 'At Point Guard College, I spent long days in the gym with players who were faster and more experienced than I was. I went to improve at basketball, but the lessons I kept were about communication, effort, and the effect one person can have on a team.',
+    reflection: 'I learned that I did not need to be the best player in the room to influence the energy of the room. I could communicate, hustle, encourage someone after a mistake, and show up prepared. Those are simple habits, but they became part of how I think about ownership. I still want to be the person who makes a team steadier when the pressure goes up.'
+  },
+  {
+    shelf: 'value', kind: 'leadership', title: 'The Library Committee', context: 'Finding community through books', principle: 'Maintain a Relentless Focus on Creating Value', cover_color: '#836637', sort_order: 3,
+    left_note: 'For three years in middle school, I spent lunch in the library as part of the student purchasing committee. We researched new books, listened to pitches from local bookstores, and helped decide what would end up on the shelves.',
+    reflection: 'It was one of my earliest experiences seeing that a small decision can shape a shared space. We were not only choosing books we liked. We were helping create a library where other students could find a story that felt like it was meant for them. That is still the kind of value I want to create in my work: making a thoughtful choice that helps someone else feel included, understood, or more curious.'
+  },
+  {
+    shelf: 'self-awareness', kind: 'leadership', title: 'The Enchantments', context: 'Saying yes to a hard thing', principle: 'Cultivate Self-Awareness, Personal Agility & Growth', cover_color: '#3f6970', sort_order: 4,
+    left_note: 'I did not think I was a hiking person. Then I trained for a three-day backpacking trip, finished twenty-eight miles with my group, and later took on the Enchantments, a twenty-four-mile day hike with my dad.',
+    reflection: 'The hike was exhausting and emotionally intense, but finishing changed the story I had been telling myself about what I could do. I learned that I like challenges that ask me to stay present, keep moving, and trust that effort adds up. It also reminded me not to decide too quickly that something is not for me just because I have not tried it yet.'
+  },
+  {
+    shelf: 'reading-alcove', kind: 'reading', title: 'The Ride of a Lifetime', context: 'Bob Iger', principle: 'Craft & Share a Compelling Vision', cover_color: '#8a523e', sort_order: 1,
+    left_note: 'I read this while I was preparing for my Disney interview, and it became one of those books where I kept stopping to underline things. I have always loved Disney for the feeling it creates, but this helped me see the strategic choices underneath that feeling.',
+    reflection: 'Bob Iger had a clear idea of the experience Disney could create for people, and his decisions kept coming back to that. Reading it before my interview made me think about the kind of product work I am drawn to. I like work that gives people a feeling, while still having a clear reason behind every decision.'
+  },
+  {
+    shelf: 'reading-alcove', kind: 'reading', title: 'Radical Candor', context: 'Kim Scott', principle: 'Cultivate Self-Awareness, Personal Agility & Growth', cover_color: '#4f7690', sort_order: 2,
+    left_note: 'This one feels a little too relevant to me. I care a lot about doing things well, and that can come out as intensity before people know that I actually care about them too.',
+    reflection: 'I can get very focused on getting something done well. The Trailblazers feedback conversation showed me that being direct can still make people feel pushed aside. I am working on asking more questions, making more space, and giving feedback in a way that helps people feel supported.'
+  },
+  {
+    shelf: 'reading-alcove', kind: 'reading', title: 'The Seven Husbands of Evelyn Hugo', context: 'Taylor Jenkins Reid', principle: 'Craft & Share a Compelling Vision', cover_color: '#9b7143', sort_order: 3,
+    left_note: 'I have thought about this book many times while writing scholarship essays, preparing for interviews, and building this project. It is strange to tell your own story while knowing that every version leaves something out.',
+    reflection: 'Evelyn made me think about the difference between controlling a narrative and being clear about what you stand for. I do not need a perfect version of my story. I want people to see the real themes in it: creativity, education, meaningful work, and showing up for people.'
+  },
+  {
+    shelf: 'reading-alcove', kind: 'reading', title: 'Normal People', context: 'Sally Rooney', principle: 'Cultivate Self-Awareness, Personal Agility & Growth', cover_color: '#5f806d', sort_order: 4,
+    left_note: 'I love this book because it is quiet, but it is also frustrating in the most recognizable way. So much happens because people assume the other person already knows what they mean or how they feel.',
+    reflection: 'This book reminds me that it is not enough to know my own strengths and weaknesses privately. People need to understand where I am coming from too. That matters in teams as much as it does in relationships. I am trying to say things more clearly instead of assuming my intent is obvious.'
+  },
+  {
+    shelf: 'reading-alcove', kind: 'reading', title: 'The Hunger Games', context: 'Suzanne Collins', principle: 'Actively Find & Formulate the Right Problems', cover_color: '#8c3e3e', sort_order: 5,
+    left_note: 'I first read this when I was younger, mostly because I could not put it down. Reading it again after Trailblazers, I noticed how the story keeps changing the question in front of you.',
+    reflection: 'Katniss starts by trying to survive the problem right in front of her. The story slowly shows that the real problem is much bigger than the Games. That connects to strategic leadership for me. The first issue you see may not be the root issue. I need to look at the systems, incentives, and people behind a problem before I get attached to a solution.'
+  },
+  {
+    shelf: 'reading-alcove', kind: 'reading', title: 'Educated', context: 'Tara Westover', principle: 'Cultivate Self-Awareness, Personal Agility & Growth', cover_color: '#6f6091', sort_order: 6,
+    left_note: 'I remember finishing this book and feeling like it made growth feel less polished than people usually talk about it. Becoming more yourself can also mean letting go of things that once made sense to you.',
+    reflection: 'Growth can be uncomfortable, especially when it asks you to rethink something you once felt sure about. That is why I value feedback even when it is hard to hear. I want to stay open to people and experiences that challenge the assumptions I bring into a room.'
+  },
+  {
+    shelf: 'reading-alcove', kind: 'reading', title: 'Punching the Air', context: 'Ibi Zoboi & Yusef Salaam', principle: 'Maintain a Relentless Focus on Creating Value', cover_color: '#405f86', sort_order: 7,
+    left_note: 'This is one of the books that made me pause more than once because it is written in verse. It makes Amal’s voice feel so immediate, which is exactly why it is hard to look away from what happens to him.',
+    reflection: 'Amal’s voice and creativity stay important even when a system tries to reduce him to one story about who he is. The book makes me think about whose stories are believed, heard, and valued. When I work with people, I want to notice who is left out of the conversation and whose perspective is easiest to miss.'
+  },
+  {
+    shelf: 'reading-alcove', kind: 'reading', title: 'The Invisible Life of Addie LaRue', context: 'V. E. Schwab', principle: 'Maintain a Relentless Focus on Creating Value', cover_color: '#3f6d70', sort_order: 8,
+    left_note: 'This book is probably the most magical one on this shelf, but what has stayed with me is actually a pretty practical question: what does it mean to make a mark when no one is keeping score?',
+    reflection: 'Addie’s life made me think about the things we create and the people we affect when no one is keeping score. I want my work to be useful to people. That matters more to me than choosing something that simply looks impressive on paper.'
+  },
+  {
+    shelf: 'reading-alcove', kind: 'reading', title: 'Project Hail Mary', context: 'Andy Weir', principle: 'Identify & Align Resources to Generate Value', cover_color: '#8f6a35', sort_order: 9,
+    left_note: 'I picked this because it is fun and weird and unexpectedly emotional, but also because Rocky and Ryland are such a good reminder that collaboration does not require people to think or work the same way.',
+    reflection: 'The main character cannot solve the problem by being smart on his own. He has to experiment, adapt, and work with someone who thinks very differently from him. That feels connected to the product and team work I want to do. I want to stay curious about strengths that are different from mine and build better things with other people.'
+  }
+];
+
+
+const app = document.querySelector('#app');
+const editStorageKey = 'ranes-leadership-library-edits-v1';
+const publishingSessionKey = 'ranes-leadership-library-github-token';
+const githubPublishConfig = {
+  owner: 'ranecovingtoncoding',
+  repo: 'ranesleadershipjourney',
+  branch: 'main',
+  path: 'library-entries.json'
+};
+let adminEditingId = null;
+
+function isEditorMode() {
+  return new URLSearchParams(window.location.search).get('edit') === '1';
+}
+
+function savedEntries() {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(editStorageKey) || 'null');
+    if (saved && Array.isArray(saved.entries)) return saved.entries;
+  } catch (error) {}
+  return starterEntries.map(function (entry, index) { return Object.assign({ id: 'book-' + index }, entry); });
+}
+
+function saveEntries() {
+  try { window.localStorage.setItem(editStorageKey, JSON.stringify({ entries: state.entries })); } catch (error) {}
+}
+
+const state = {
+  title: 'Rane’s Library of Better Questions',
+  subtitle: 'A collection of the stories, mistakes, ideas, and books I want to keep returning to long after Trailblazers ends.',
+  entries: savedEntries()
+};
+
+function newEntry() {
+  return {
+    id: 'book-' + Date.now(), shelf: 'self-awareness', kind: 'leadership', title: 'Untitled entry',
+    context: '', principle: shelves[0].title, cover_color: '#506f5d', sort_order: 99,
+    left_note: '', reflection: ''
+  };
+}
+
+function encodeBase64(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = '';
+  bytes.forEach(function (byte) { binary += String.fromCharCode(byte); });
+  return btoa(binary);
+}
+
+async function loadPublishedEntries() {
+  const url = 'https://raw.githubusercontent.com/' + githubPublishConfig.owner + '/' + githubPublishConfig.repo + '/' + githubPublishConfig.branch + '/' + githubPublishConfig.path + '?v=' + Date.now();
+  try {
+    const response = await fetch(url, { cache: 'no-store' });
+    if (!response.ok) return;
+    const published = await response.json();
+    if (published && Array.isArray(published.entries)) {
+      state.entries = published.entries;
+      if (published.title) state.title = published.title;
+      if (published.subtitle) state.subtitle = published.subtitle;
+    }
+  } catch (error) {
+    // The built-in entries remain available until the first published update exists.
+  }
+}
+
+async function publishEntries(token) {
+  const endpoint = 'https://api.github.com/repos/' + githubPublishConfig.owner + '/' + githubPublishConfig.repo + '/contents/' + githubPublishConfig.path;
+  const headers = { Accept: 'application/vnd.github+json', Authorization: 'Bearer ' + token };
+  const currentResponse = await fetch(endpoint + '?ref=' + githubPublishConfig.branch, { headers: headers });
+  let sha = null;
+  if (currentResponse.ok) {
+    sha = (await currentResponse.json()).sha;
+  } else if (currentResponse.status !== 404) {
+    throw new Error('GitHub could not open the journal file. Check the repository name and your token permissions.');
+  }
+  const journal = JSON.stringify({
+    version: 1,
+    updated_at: new Date().toISOString(),
+    title: state.title,
+    subtitle: state.subtitle,
+    entries: state.entries
+  }, null, 2);
+  const body = {
+    message: 'Update leadership library journal',
+    content: encodeBase64(journal),
+    branch: githubPublishConfig.branch
+  };
+  if (sha) body.sha = sha;
+  const response = await fetch(endpoint, {
+    method: 'PUT',
+    headers: Object.assign({ 'Content-Type': 'application/json' }, headers),
+    body: JSON.stringify(body)
+  });
+  if (!response.ok) {
+    const error = await response.json().catch(function () { return {}; });
+    throw new Error(error.message || 'GitHub did not accept this update.');
+  }
+  return response.json();
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+}
+
+function paragraphs(value) {
+  return escapeHtml(value || '').split(/\n\s*\n/).filter(Boolean)
+    .map(function (item) { return '<p>' + item + '</p>'; }).join('');
+}
+
+function libraryIllustration() {
+  return [
+    '<div class="library-illustration" aria-hidden="true"><svg viewBox="0 0 950 610">',
+    '<defs><linearGradient id="building" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#334a3e"/><stop offset="100%" stop-color="#18271f"/></linearGradient><linearGradient id="roof" x1="0" x2="1"><stop offset="0%" stop-color="#1a2729"/><stop offset="100%" stop-color="#334541"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="9" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>',
+    '<path d="M0 535 Q105 482 220 522 T430 520 T654 516 T950 535 V610 H0Z" fill="#0a1612"/><path d="M42 568 Q156 515 278 553 T544 548 T766 544 T950 564 V610 H0Z" fill="#10211a"/>',
+    '<path d="M240 504 L272 201 L475 75 L690 201 L734 504Z" fill="url(#building)" stroke="#0f1916" stroke-width="9"/><path d="M214 217 L475 42 L758 217 L713 230 L475 92 L253 230Z" fill="url(#roof)" stroke="#0e1818" stroke-width="9"/>',
+    '<path d="M465 43 L465 5 L502 5 L502 65Z" fill="#263931" stroke="#0f1916" stroke-width="7"/><path d="M296 501 L310 244 L475 146 L644 244 L671 501Z" fill="#2d4338" opacity=".95"/>',
+    '<g filter="url(#glow)" fill="#efc76d" stroke="#19251e" stroke-width="9"><path d="M326 290 Q326 252 358 252 Q390 252 390 290 V369 H326Z"/><path d="M554 290 Q554 252 586 252 Q618 252 618 290 V369 H554Z"/><path d="M326 397 Q326 361 358 361 Q390 361 390 397 V474 H326Z"/><path d="M554 397 Q554 361 586 361 Q618 361 618 397 V474 H554Z"/></g>',
+    '<path d="M271 504 H680" stroke="#6d4a2c" stroke-width="12"/><path d="M291 512 H660" stroke="#20150f" stroke-width="12"/><g opacity=".92"><path d="M188 534 Q190 431 236 423 Q277 449 275 534Z" fill="#14231b"/><path d="M698 534 Q699 423 744 414 Q786 449 786 534Z" fill="#14231b"/></g>',
+    '</svg></div>'
+  ].join('');
+}
+
+function renderEntry() {
+  app.innerHTML = [
+    '<section class="entry"><div class="moon"></div><div class="entry-copy">',
+    '<p class="eyebrow">A strategic leadership plan</p><h1>' + escapeHtml(state.title) + '</h1><p>' + escapeHtml(state.subtitle) + '</p></div>',
+    libraryIllustration(), isEditorMode() ? '<button class="edit-book" id="openAdmin" type="button">Journal editor</button>' : '', '<button class="door" id="enterDoor" aria-label="Enter the library">Enter</button>',
+    '<p class="entry-note">Click the door to enter.</p></section>'
+  ].join('');
+  document.querySelector('#enterDoor').addEventListener('click', function () {
+    document.querySelector('#enterDoor').classList.add('open');
+    window.setTimeout(renderInterior, 610);
+  });
+  const adminButton = document.querySelector('#openAdmin');
+  if (adminButton) adminButton.addEventListener('click', renderAdmin);
+}
+
+function coverStyle(entry) { return '--book:' + escapeHtml(entry.cover_color || '#536d5c') + ';'; }
+
+function shelfHtml(shelf) {
+  const entries = state.entries.filter(function (entry) { return entry.kind === 'leadership' && entry.shelf === shelf.id; })
+    .sort(function (a, b) { return a.sort_order - b.sort_order; });
+  const books = entries.map(function (entry, index) {
+    const height = index % 2 === 0 ? 168 : 187;
+    const width = index % 2 === 0 ? 98 : 106;
+    const size = entry.title.length > 27 ? '.43rem' : (entry.title.length > 20 ? '.50rem' : '.62rem');
+    return '<button class="spine" data-open-book="' + entry.id + '" style="' + coverStyle(entry) + '--book-width:' + width + 'px;--book-height:' + height + 'px;--spine-size:' + size + '"><span>' + escapeHtml(entry.title) + '</span></button>';
+  }).join('');
+  return '<section class="shelf-section"><div class="shelf-heading"><span class="shelf-number">' + shelf.number + '</span><h3>' + escapeHtml(shelf.title) + '</h3></div><div class="shelf-scroll"><div class="wood-shelf">' + books + '<div class="candle" aria-hidden="true"></div></div></div></section>';
+}
+
+function readingAlcoveHtml() {
+  const heights = [176,193,163,185,172,198,165,189,178];
+  const widths = [72,62,73,65,70,63,67,73,64];
+  const books = state.entries.filter(function (entry) { return entry.kind === 'reading'; })
+    .sort(function (a,b) { return a.sort_order - b.sort_order; })
+    .map(function (entry, index) {
+      const size = entry.title.length > 27 ? '.40rem' : (entry.title.length > 20 ? '.48rem' : '.57rem');
+      return '<button class="reading-book" data-open-book="' + entry.id + '" style="' + coverStyle(entry) + '--book-width:' + widths[index] + 'px;--book-height:' + heights[index] + 'px;--spine-size:' + size + '"><span>' + escapeHtml(entry.title) + '</span></button>';
+    }).join('');
+  return '<section class="reading-alcove"><div class="reading-intro"><h3>The Leadership Reading Alcove</h3><p>These are not all leadership books in the traditional sense. They are books that have made me think about people, power, feedback, courage, identity, and what it means to create something that matters. Each one belongs somewhere in the six-shelf library too.</p></div><div class="reading-scroll"><div class="reading-shelf">' + books + '</div></div></section>';
+}
+
+function modalHtml() {
+  return '<dialog class="book-dialog" id="bookDialog"><button class="close-book" aria-label="Close book">×</button>' + (isEditorMode() ? '<button class="edit-book" id="editBook" type="button">Edit this book</button>' : '') + '<div class="book-stage"><article class="open-book"><div class="page left" id="leftPage"></div><div class="page right" id="rightPage"></div><div class="turn-page" id="turnPage"><span id="coverTitle"></span><small>Rane’s Leadership Library</small></div></article></div></dialog>';
+}
+
+function renderInterior() {
+  app.innerHTML = '<section class="interior"><header class="interior-header"><div class="top-actions"><button class="secondary-button" id="backToDoor">← Door</button>' + (isEditorMode() ? '<button class="secondary-button" id="openAdmin">Journal editor</button>' : '') + '</div><p class="eyebrow">The main collection</p><h2>Six shelves for the lessons I am still learning.</h2><p>Each shelf is one strategic leadership principle. Each book is a real moment that changed how I want to show up in my work, my teams, and my life.</p></header><main class="library-content"><p class="library-instruction">Choose a book. It will open when you are ready to read it.</p>' + shelves.map(shelfHtml).join('') + readingAlcoveHtml() + '</main></section>' + modalHtml();
+  document.querySelector('#backToDoor').addEventListener('click', renderEntry);
+  const adminButton = document.querySelector('#openAdmin');
+  if (adminButton) adminButton.addEventListener('click', renderAdmin);
+  document.querySelectorAll('[data-open-book]').forEach(function (button) { button.addEventListener('click', function () { openBook(button.dataset.openBook); }); });
+  document.querySelector('.close-book').addEventListener('click', closeBook);
+}
+
+function openBook(id) {
+  const entry = state.entries.find(function (item) { return item.id === id; });
+  const dialog = document.querySelector('#bookDialog');
+  document.querySelector('#leftPage').innerHTML = '<p class="page-label">' + escapeHtml(entry.context || 'A note from this shelf') + '</p><h4>Why this belongs in the library</h4>' + paragraphs(entry.left_note);
+  document.querySelector('#rightPage').innerHTML = '<p class="page-label">The reflection</p><h2>' + escapeHtml(entry.title) + '</h2><span class="principle-chip">' + escapeHtml(entry.principle) + '</span>' + paragraphs(entry.reflection);
+  document.querySelector('#coverTitle').textContent = entry.title;
+  document.querySelector('#turnPage').style.setProperty('--book-cover', entry.cover_color || '#536d5c');
+  dialog.classList.remove('opening');
+  if (!dialog.open) dialog.showModal();
+  window.requestAnimationFrame(function () { dialog.classList.add('opening'); });
+  const editButton = document.querySelector('#editBook');
+  if (editButton) editButton.addEventListener('click', function () { editBook(entry.id); });
+}
+
+function closeBook() { const dialog = document.querySelector('#bookDialog'); dialog.close(); dialog.classList.remove('opening'); }
+
+function editBook(id) {
+  const entry = state.entries.find(function (item) { return item.id === id; });
+  document.querySelector('#turnPage').style.display = 'none';
+  document.querySelector('#leftPage').innerHTML = [
+    '<form class="book-editor" id="bookEditor">',
+    '<p class="editor-note">This saves a draft in this browser. Use Journal editor to publish it for everyone.</p>',
+    '<label>Book title<input name="title" value="' + escapeHtml(entry.title) + '"></label>',
+    '<label>Context or author<input name="context" value="' + escapeHtml(entry.context || '') + '"></label>',
+    '<label>Leadership principle<input name="principle" value="' + escapeHtml(entry.principle || '') + '"></label>',
+    '<label>Why this belongs<textarea name="left_note">' + escapeHtml(entry.left_note) + '</textarea></label>',
+    '</form>'
+  ].join('');
+  document.querySelector('#rightPage').innerHTML = [
+    '<label class="book-editor">Reflection<textarea form="bookEditor" name="reflection">' + escapeHtml(entry.reflection) + '</textarea></label>',
+    '<div class="form-actions"><button class="primary-button" form="bookEditor" type="submit">Save draft</button><button class="secondary-button" id="cancelBookEdit" type="button">Cancel</button></div>'
+  ].join('');
+  document.querySelector('#bookEditor').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    entry.title = String(form.get('title') || '').trim();
+    entry.context = String(form.get('context') || '').trim();
+    entry.principle = String(form.get('principle') || '').trim();
+    entry.left_note = String(form.get('left_note') || '').trim();
+    entry.reflection = String(form.get('reflection') || '').trim();
+    saveEntries();
+    document.querySelector('#turnPage').style.display = '';
+    openBook(id);
+  });
+  document.querySelector('#cancelBookEdit').addEventListener('click', function () {
+    document.querySelector('#turnPage').style.display = '';
+    openBook(id);
+  });
+}
+
+function showNotice(message, isError) {
+  const previous = document.querySelector('.notice');
+  if (previous) previous.remove();
+  const notice = document.createElement('div');
+  notice.className = 'notice' + (isError ? ' error' : '');
+  notice.textContent = message;
+  document.body.appendChild(notice);
+  window.setTimeout(function () { notice.remove(); }, 5200);
+}
+
+function entryFromForm(entry, form) {
+  const values = new FormData(form);
+  entry.title = String(values.get('title') || '').trim() || 'Untitled entry';
+  entry.context = String(values.get('context') || '').trim();
+  entry.kind = String(values.get('kind') || 'leadership');
+  entry.shelf = String(values.get('shelf') || 'self-awareness');
+  entry.principle = String(values.get('principle') || '').trim();
+  entry.cover_color = String(values.get('cover_color') || '#506f5d');
+  entry.sort_order = Number(values.get('sort_order')) || 99;
+  entry.left_note = String(values.get('left_note') || '').trim();
+  entry.reflection = String(values.get('reflection') || '').trim();
+}
+
+function selectOption(value, current, label) {
+  return '<option value="' + escapeHtml(value) + '"' + (value === current ? ' selected' : '') + '>' + escapeHtml(label) + '</option>';
+}
+
+function editorFormHtml(entry) {
+  const shelfOptions = shelves.map(function (shelf) { return selectOption(shelf.id, entry.shelf, shelf.number + ' · ' + shelf.title); }).join('');
+  return [
+    '<form class="book-editor" id="journalForm">',
+    '<label>Book title<input name="title" value="' + escapeHtml(entry.title) + '"></label>',
+    '<div class="field-row"><label>Type<select name="kind">' + selectOption('leadership', entry.kind, 'Leadership story') + selectOption('reading', entry.kind, 'Reading alcove book') + '</select></label>',
+    '<label>Shelf<select name="shelf">' + shelfOptions + '</select></label></div>',
+    '<div class="field-row"><label>Context or author<input name="context" value="' + escapeHtml(entry.context || '') + '"></label>',
+    '<label>Sort order<input name="sort_order" type="number" min="1" value="' + escapeHtml(entry.sort_order || 1) + '"></label></div>',
+    '<label>Leadership principle<input name="principle" value="' + escapeHtml(entry.principle || '') + '"></label>',
+    '<label>Cover color<input name="cover_color" type="color" value="' + escapeHtml(entry.cover_color || '#506f5d') + '"></label>',
+    '<label>Why this belongs<textarea name="left_note">' + escapeHtml(entry.left_note || '') + '</textarea></label>',
+    '<label>Reflection<textarea name="reflection">' + escapeHtml(entry.reflection || '') + '</textarea></label>',
+    '<div class="form-actions"><button class="primary-button" type="submit">Save draft</button><button class="secondary-button" id="publishChanges" type="button">Publish to website</button><button class="danger-button" id="deleteEntry" type="button">Delete</button></div>',
+    '</form>'
+  ].join('');
+}
+
+function renderAdmin() {
+  if (!isEditorMode()) {
+    renderEntry();
+    return;
+  }
+  if (!adminEditingId || !state.entries.some(function (entry) { return entry.id === adminEditingId; })) adminEditingId = state.entries[0].id;
+  const selected = state.entries.find(function (entry) { return entry.id === adminEditingId; });
+  const isConnected = Boolean(sessionStorage.getItem(publishingSessionKey));
+  const entryList = state.entries.slice().sort(function (a, b) { return a.title.localeCompare(b.title); }).map(function (entry) {
+    return '<div class="admin-entry"><div><strong>' + escapeHtml(entry.title) + '</strong><small>' + escapeHtml(entry.context || entry.principle || 'Journal entry') + '</small></div><button data-admin-entry="' + escapeHtml(entry.id) + '">Edit</button></div>';
+  }).join('');
+  app.innerHTML = [
+    '<main class="admin-page"><header class="admin-top"><div><p class="eyebrow">Private workspace</p><h1>Journal editor</h1><p>Draft freely here. Publishing creates or updates one journal file in your GitHub repository, which Vercel then uses for the public library.</p></div><button class="secondary-button" id="adminBack">← Back to library</button></header>',
+    '<section class="admin-grid"><aside class="admin-card"><h2>Your books</h2><div class="form-actions"><button class="primary-button" id="addEntry" type="button">Add a book</button></div><div class="admin-list">' + entryList + '</div></aside>',
+    '<section class="admin-card"><h2>Edit book</h2><p class="editor-note">GitHub publishing is ' + (isConnected ? 'connected for this browser session.' : 'not connected yet.') + '</p>',
+    isConnected ? '<div class="form-actions"><button class="secondary-button" id="disconnectPublishing" type="button">Disconnect GitHub</button></div>' : '<div class="book-editor"><label>GitHub publishing token<input id="githubToken" type="password" autocomplete="off" placeholder="Paste token only when you want to publish"></label><p class="editor-note">This stays only in this browser session. It needs access to this repository’s Contents: Read and write permission.</p><div class="form-actions"><button class="secondary-button" id="connectPublishing" type="button">Connect GitHub publishing</button></div></div>',
+    '<h3>Current entry</h3>', editorFormHtml(selected), '</section></section></main>'
+  ].join('');
+  document.querySelector('#adminBack').addEventListener('click', renderInterior);
+  document.querySelectorAll('[data-admin-entry]').forEach(function (button) {
+    button.addEventListener('click', function () { adminEditingId = button.dataset.adminEntry; renderAdmin(); });
+  });
+  document.querySelector('#addEntry').addEventListener('click', function () {
+    const entry = newEntry();
+    entry.sort_order = state.entries.filter(function (item) { return item.kind === entry.kind && item.shelf === entry.shelf; }).length + 1;
+    state.entries.push(entry);
+    adminEditingId = entry.id;
+    saveEntries();
+    renderAdmin();
+  });
+  const connectButton = document.querySelector('#connectPublishing');
+  if (connectButton) connectButton.addEventListener('click', function () {
+    const token = document.querySelector('#githubToken').value.trim();
+    if (!token) { showNotice('Paste a GitHub publishing token first.', true); return; }
+    sessionStorage.setItem(publishingSessionKey, token);
+    renderAdmin();
+    showNotice('GitHub publishing is connected for this browser session.');
+  });
+  const disconnectButton = document.querySelector('#disconnectPublishing');
+  if (disconnectButton) disconnectButton.addEventListener('click', function () {
+    sessionStorage.removeItem(publishingSessionKey);
+    renderAdmin();
+    showNotice('GitHub publishing was disconnected from this browser.');
+  });
+  const form = document.querySelector('#journalForm');
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    entryFromForm(selected, form);
+    saveEntries();
+    renderAdmin();
+    showNotice('Draft saved in this browser. Publish when you are ready.');
+  });
+  document.querySelector('#deleteEntry').addEventListener('click', function () {
+    if (!window.confirm('Delete “' + selected.title + '”? You can only undo this if you have not published yet.')) return;
+    state.entries = state.entries.filter(function (entry) { return entry.id !== selected.id; });
+    adminEditingId = state.entries[0].id;
+    saveEntries();
+    renderAdmin();
+    showNotice('Entry deleted from this browser. Publish to update the public library.');
+  });
+  document.querySelector('#publishChanges').addEventListener('click', async function () {
+    entryFromForm(selected, form);
+    saveEntries();
+    const token = sessionStorage.getItem(publishingSessionKey);
+    if (!token) { showNotice('Connect GitHub publishing before you publish.', true); return; }
+    const button = document.querySelector('#publishChanges');
+    button.disabled = true;
+    button.textContent = 'Publishing…';
+    try {
+      await publishEntries(token);
+      showNotice('Published to GitHub. Vercel should update the public library in about a minute.');
+    } catch (error) {
+      showNotice(error.message || 'The update could not be published.', true);
+      button.disabled = false;
+      button.textContent = 'Publish to website';
+    }
+  });
+}
+
+loadPublishedEntries().finally(renderEntry);
+
+</script>
+</body>
+</html>

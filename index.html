@@ -564,7 +564,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--moss); box-shado
 .shelf-heading { display: flex; align-items: center; gap: 14px; padding: 18px 22px 0; background: transparent; }
 .shelf-number { color: var(--warm-gold); }
 .shelf-heading h3 { margin: 0; padding: 6px 18px 7px; color: #2c1b0d; font-size: clamp(1.15rem, 2vw, 1.5rem); background: linear-gradient(180deg, #f2d690, #c99c47 55%, #e8c67a); border: 1px solid #7a5a22; border-radius: 3px; box-shadow: 0 2px 0 rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .55); }
-.shelf-scroll { padding: 40px 16px 0; scrollbar-width: thin; scrollbar-color: #9a6b32 #1b110b;
+.shelf-scroll { overflow-x: auto; overflow-y: hidden; padding: 40px 16px 0; scrollbar-width: thin; scrollbar-color: #9a6b32 #1b110b;
   background:
     radial-gradient(ellipse at 18% 34%, rgba(255, 190, 90, .13), transparent 58%),
     repeating-linear-gradient(90deg, rgba(0, 0, 0, .2) 0 2px, transparent 2px 38px),
@@ -589,7 +589,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--moss); box-shado
 .book-tip.on { opacity: 1; }
 
 /* Reading alcove */
-.reading-scroll { margin-top: 0; padding-top: 34px; scrollbar-width: thin; scrollbar-color: #9a6b32 #1b110b; }
+.reading-scroll { overflow-x: auto; overflow-y: hidden; margin-top: 0; padding-top: 34px; scrollbar-width: thin; scrollbar-color: #9a6b32 #1b110b; }
 .reading-shelf { min-width: 100%; width: max-content; }
 
 @keyframes twinkle { from { opacity: .12; } to { opacity: .95; } }

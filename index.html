@@ -533,7 +533,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--moss); box-shado
 .shooting-star { position: absolute; z-index: 1; top: 13%; left: -12%; width: 130px; height: 2px; opacity: 0; pointer-events: none; background: linear-gradient(90deg, rgba(255,255,255,0), #fff); animation: shoot 11s ease-in 4s infinite; }
 .moon { --m: min(16vw, 148px); width: var(--m); background: transparent; box-shadow: inset calc(var(--m) * -.21) calc(var(--m) * .07) 0 0 #f8eac0; filter: drop-shadow(0 0 16px rgba(255, 236, 178, .4)); }
 .moon::after { display: none; }
-.library-illustration { position: absolute; z-index: 1; left: 0; right: 0; bottom: -10px; margin: 0 auto; width: min(930px, 96vw, calc(57vh * 1.557)); height: auto; aspect-ratio: 950 / 610; transform-origin: 50% 66%; transition: transform 1.15s cubic-bezier(.55, 0, .85, .35); }
+.library-illustration { position: absolute; z-index: 1; left: 0; right: 0; bottom: -10px; margin: 0 auto; width: min(930px, 96vw, calc(51vh * 1.557)); height: auto; aspect-ratio: 950 / 610; transform-origin: 50% 66%; transition: transform 1.15s cubic-bezier(.55, 0, .85, .35); }
 .library-illustration svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .door::after { display: none; }
 .entry-note { bottom: 8px; }
@@ -564,7 +564,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--moss); box-shado
 .shelf-heading { display: flex; align-items: center; gap: 14px; padding: 18px 22px 0; background: transparent; }
 .shelf-number { color: var(--warm-gold); }
 .shelf-heading h3 { margin: 0; padding: 6px 18px 7px; color: #2c1b0d; font-size: clamp(1.15rem, 2vw, 1.5rem); background: linear-gradient(180deg, #f2d690, #c99c47 55%, #e8c67a); border: 1px solid #7a5a22; border-radius: 3px; box-shadow: 0 2px 0 rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .55); }
-.shelf-scroll { padding: 40px 16px 0; scrollbar-width: thin; scrollbar-color: #9a6b32 #1b110b;
+.shelf-scroll { overflow-x: auto; overflow-y: hidden; padding: 40px 16px 0; scrollbar-width: thin; scrollbar-color: #9a6b32 #1b110b;
   background:
     radial-gradient(ellipse at 18% 34%, rgba(255, 190, 90, .13), transparent 58%),
     repeating-linear-gradient(90deg, rgba(0, 0, 0, .2) 0 2px, transparent 2px 38px),
@@ -589,7 +589,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--moss); box-shado
 .book-tip.on { opacity: 1; }
 
 /* Reading alcove */
-.reading-scroll { margin-top: 0; padding-top: 34px; scrollbar-width: thin; scrollbar-color: #9a6b32 #1b110b; }
+.reading-scroll { overflow-x: auto; overflow-y: hidden; margin-top: 0; padding-top: 34px; scrollbar-width: thin; scrollbar-color: #9a6b32 #1b110b; }
 .reading-shelf { min-width: 100%; width: max-content; }
 
 @keyframes twinkle { from { opacity: .12; } to { opacity: .95; } }
@@ -612,6 +612,46 @@ input:focus, textarea:focus, select:focus { border-color: var(--moss); box-shado
   .motes, .stars, .shooting-star { display: none; }
 }
 
+/* ===== Notes, blurbs, ribbon, future book, owl ===== */
+.shelf-blurb { margin: 10px 24px 0; color: #eadcb9; font: italic 1.12rem/1.45 Georgia, serif; }
+.page p { font-size: 1.08rem; }
+.book-tip { font-size: .95rem; }
+.ribbon { position: absolute; z-index: 3; top: -2px; right: 12px; width: 15px; height: 36px; pointer-events: none; background: linear-gradient(180deg, #f2d690, #b98a3a); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%); filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .4)); }
+.badge-chip { display: inline-block; margin: 0 0 23px 8px; padding: 8px 10px; color: #3a2a10; background: linear-gradient(180deg, #f2d690, #d3a74f); border-radius: 2px; font: 700 .69rem/1.35 Arial, sans-serif; letter-spacing: .04em; }
+.letter-button { display: inline-flex; align-items: center; gap: 9px; margin-top: 24px; padding: 12px 22px; color: #fbeec8; background: rgba(12, 21, 29, .5); border: 1px solid rgba(246, 217, 144, .85); border-radius: 999px; font: 700 .8rem Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; box-shadow: 0 0 24px rgba(246, 217, 144, .25); animation: gold-pulse 3s ease-in-out infinite; }
+.letter-button:hover, .letter-button:focus-visible { background: rgba(60, 46, 20, .7); outline: 2px solid var(--warm-gold); outline-offset: 4px; }
+.future-book { position: relative; z-index: 1; width: 86px; height: 178px; flex: none; padding: 10px 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #f6d990; background: rgba(255, 226, 150, .07); border: 2px dashed rgba(246, 217, 144, .75); border-radius: 3px 7px 2px 2px; font: 700 .82rem/1.15 Georgia, serif; text-align: center; animation: gold-pulse 3s ease-in-out infinite; transition: transform .22s ease; }
+.future-book .plus { font-size: 1.5rem; }
+.future-book:hover, .future-book:focus-visible { transform: translateY(-15px) rotate(-1.6deg); outline: 3px solid #f6d896; outline-offset: 3px; }
+
+.note-dialog { width: min(800px, calc(100% - 24px)); max-width: none; padding: 0; color: #23342d; background: transparent; border: 0; overflow: visible; }
+.note-dialog::backdrop { background: rgba(5, 12, 20, .87); backdrop-filter: blur(4px); }
+.note-dialog[open] .note-card { animation: reveal-pages .45s ease both; }
+.note-card { max-height: min(86vh, 920px); overflow-y: auto; padding: clamp(28px, 5vw, 58px); background: linear-gradient(90deg, rgba(155, 124, 75, .06), transparent 12%, transparent 88%, rgba(155, 124, 75, .06)), #fffaf0; border-radius: 8px; box-shadow: 0 30px 60px rgba(0, 0, 0, .5); }
+.note-card h2 { margin: 0 0 22px; font-size: clamp(2.1rem, 4.6vw, 3.3rem); line-height: 1; }
+.note-card h3 { margin: 30px 0 10px; color: var(--moss); font: 700 .74rem Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.note-card p { margin: 0 0 16px; font-size: 1.15rem; line-height: 1.72; }
+.note-card .note-intro { color: #425447; font-size: 1.22rem; font-style: italic; }
+.note-card ul { margin: 0 0 16px; padding: 0; list-style: none; }
+.note-card li { margin-bottom: 10px; padding: 13px 16px; border-left: 4px solid var(--gold); background: #f6efd9; font-size: 1.12rem; line-height: 1.6; }
+.note-card li strong { color: var(--moss); }
+.note-card .note-sign { margin-top: 28px; font: italic 700 2rem/1 var(--display); }
+
+.owl-wrap { position: fixed; z-index: 70; right: 18px; bottom: 14px; }
+.owl { display: block; width: 76px; height: 88px; padding: 0; border: 0; background: none; filter: drop-shadow(0 6px 8px rgba(0, 0, 0, .45)); transition: transform .25s ease; }
+.owl svg { display: block; width: 100%; height: 100%; }
+.owl:hover, .owl:focus-visible, .owl-wrap.open .owl { transform: translateY(-4px) rotate(-3deg); outline: none; }
+.owl .lid { transform-box: fill-box; transform-origin: 50% 0; transform: scaleY(0); animation: blink 6s infinite; }
+.owl-bubble { position: absolute; right: 4px; bottom: 96px; width: min(340px, calc(100vw - 36px)); padding: 16px 20px 6px; color: #33261a; background: #fff6dc; border: 1px solid #d9b96a; border-radius: 16px; box-shadow: 0 14px 34px rgba(0, 0, 0, .45); font: 1.02rem/1.55 Georgia, serif; opacity: 0; transform: translateY(8px) scale(.96); transform-origin: bottom right; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+.owl-bubble p { margin: 0 0 11px; }
+.owl-bubble::before { content: ""; position: absolute; left: 0; right: 0; bottom: -16px; height: 16px; }
+.owl-bubble::after { content: ""; position: absolute; right: 30px; bottom: -9px; width: 16px; height: 16px; background: #fff6dc; border-right: 1px solid #d9b96a; border-bottom: 1px solid #d9b96a; transform: rotate(45deg); }
+.owl-wrap:hover .owl-bubble, .owl-wrap:focus-within .owl-bubble, .owl-wrap.open .owl-bubble { opacity: 1; transform: none; pointer-events: auto; }
+
+@keyframes gold-pulse { 0%, 100% { box-shadow: 0 0 14px rgba(246, 217, 144, .18); } 50% { box-shadow: 0 0 30px rgba(246, 217, 144, .45); } }
+@keyframes blink { 0%, 93%, 100% { transform: scaleY(0); } 95%, 97% { transform: scaleY(1); } }
+@media (max-width: 800px) { .shelf-blurb { margin: 8px 22px 0; font-size: 1.05rem; } .owl { width: 62px; height: 72px; } .owl-bubble { bottom: 80px; } }
+
 </style>
 </head>
 <body>
@@ -619,12 +659,12 @@ input:focus, textarea:focus, select:focus { border-color: var(--moss); box-shado
 <script>
 
 const shelves = [
-  { id: 'self-awareness', number: '01', title: 'Cultivate Self-Awareness, Personal Agility & Growth' },
-  { id: 'right-problems', number: '02', title: 'Actively Find & Formulate the Right Problems' },
-  { id: 'vision', number: '03', title: 'Craft & Share a Compelling Vision' },
-  { id: 'ownership', number: '04', title: 'Deliver Results with Strong Personal Ownership' },
-  { id: 'resources', number: '05', title: 'Identify & Align Resources to Generate Value' },
-  { id: 'value', number: '06', title: 'Maintain a Relentless Focus on Creating Value' }
+  { id: 'self-awareness', number: '01', title: 'Cultivate Self-Awareness, Personal Agility & Growth', blurb: 'Learning that how I come across matters as much as what I mean.' },
+  { id: 'right-problems', number: '02', title: 'Actively Find & Formulate the Right Problems', blurb: 'Choosing a smaller problem, and asking the right people the right questions.' },
+  { id: 'vision', number: '03', title: 'Craft & Share a Compelling Vision', blurb: 'Listening first, and helping people feel seen.' },
+  { id: 'ownership', number: '04', title: 'Deliver Results with Strong Personal Ownership', blurb: 'Showing up for what lands in front of me, and leaving room for others to do the same.' },
+  { id: 'resources', number: '05', title: 'Identify & Align Resources to Generate Value', blurb: 'Noticing what I already have to offer, and speaking up about it.' },
+  { id: 'value', number: '06', title: 'Maintain a Relentless Focus on Creating Value', blurb: 'Making choices that actually help someone, not just ones that look good.' }
 ];
 
 const starterEntries = [
@@ -640,11 +680,11 @@ const starterEntries = [
   },
   {
     shelf: 'right-problems', kind: 'leadership', title: 'Ken Garff Scope', context: 'Choosing the problem we could actually help solve', principle: 'Actively Find & Formulate the Right Problems', cover_color: '#b06149', sort_order: 1,
-    left_note: 'At the start of our Ken Garff for Good project, my team thought we could solve everything. We were talking about student motivation, school implementation, scholarships, career exploration, and more. There were so many directions that it became hard to tell what would really help.',
-    reflection: 'We finally narrowed our focus to the administrator experience. The question became: what would make rollout and ongoing use better for the people at schools who make the program possible? We do not have our final recommendation yet, but the project feels much clearer. I learned that strategy often means choosing a smaller, more specific problem instead of trying to make an idea cover everything.'
+    left_note: 'In Trailblazers, my group has been working with Ken Garff for Good on their Champion Schools 34 platform, which is connected to the Utah 2034 Olympics. The platform is meant to help Utah high school students prepare for and achieve more in post-secondary education.\n\nAt first, we tried to tackle too many things. We wanted to improve the experience for freshmen and sophomores, build platform mockups, revitalize the administrator onboarding experience, develop a way to collect data, and create a social media strategy, among many other things.',
+    reflection: 'To create real value for our client, we had to ask ourselves: what would actually be the most valuable thing we can do?\n\nFrom there, we decided to focus on the school educator experience and what it would look like to build a system that is scalable and sustainable as Ken Garff for Good brings Champion Schools 34 into every school in Utah.'
   },
   {
-    shelf: 'right-problems', kind: 'leadership', title: 'Blog Posts', context: 'The internship I would approach differently now', principle: 'Actively Find & Formulate the Right Problems', cover_color: '#53768b', sort_order: 2,
+    shelf: 'right-problems', kind: 'leadership', title: 'Blog Posts', badge: 'Hindsight', context: 'The internship I would approach differently now', principle: 'Actively Find & Formulate the Right Problems', cover_color: '#53768b', sort_order: 2,
     left_note: 'During my Goff Explorers internship, I wrote SEO blog posts for a therapy center. At first, I treated the assignment like a weekly checklist. I picked a topic, wrote the blog, and moved on.',
     reflection: 'When I brought an assignment to office hours, my professor pushed me to make a plan for the full semester and explain why each topic belonged in it. If I did it again, I would start with more questions about the audience, what people were searching for, and how the therapy center used content across newsletters and social media. I had completed the work. I had not thought enough about the result it was supposed to create.'
   },
@@ -762,6 +802,26 @@ const starterEntries = [
     shelf: 'reading-alcove', kind: 'reading', title: 'Project Hail Mary', context: 'Andy Weir', principle: 'Identify & Align Resources to Generate Value', cover_color: '#8f6a35', sort_order: 9,
     left_note: 'I picked this because it is fun and weird and unexpectedly emotional, but also because Rocky and Ryland are such a good reminder that collaboration does not require people to think or work the same way.',
     reflection: 'The main character cannot solve the problem by being smart on his own. He has to experiment, adapt, and work with someone who thinks very differently from him. That feels connected to the product and team work I want to do. I want to stay curious about strengths that are different from mine and build better things with other people.'
+  },
+  {
+    id: 'book-team-360', shelf: 'ownership', kind: 'leadership', title: 'Team 360', context: 'The moment I saw how I was part of the problem', principle: 'Deliver Results with Strong Personal Ownership', cover_color: '#5d6f8a', sort_order: 4,
+    left_note: 'During our team 360, we had a breakthrough. I had been thinking that two of my classmates did not have the ability to take ownership and step up to contribute on their own.',
+    reflection: 'What I learned is that they did not know how to step in. One of my other teammates and I tended to come with a solution already, and we did not include them in the brainstorming process. That made it hard for them to feel like their ideas would help, or to take ownership over what they brought to the project.\n\nSometimes it is not one person in isolation who keeps a team from working. It can be the mix of different work styles rubbing against each other. I want to pay more attention to the space I leave for other people before I decide someone is not stepping up.'
+  },
+  {
+    id: 'book-asking-right-people', shelf: 'right-problems', kind: 'leadership', title: 'Asking the Right People', context: 'Learning who to ask, and what to ask', principle: 'Actively Find & Formulate the Right Problems', cover_color: '#7a5b3e', sort_order: 3,
+    left_note: 'My Goff Explorers internship taught me how to take steps on my own and push beyond what would be sufficient. Trailblazers added something different. It taught me how to find the problem first, and how to ask the right questions of my team and of the people I am trying to help.',
+    reflection: 'Not always is the person you are talking to the best person to get insights from. That idea is going to be helpful in how I approach customer interviews going forward. Before I start asking questions, I want to ask myself who is closest to the problem, and whether I am actually hearing from them.'
+  },
+  {
+    id: 'book-showing-up-utah', shelf: 'value', kind: 'leadership', title: 'Showing Up for Utah Students', context: 'Community work does not have to wait', principle: 'Maintain a Relentless Focus on Creating Value', cover_color: '#4a6b5d', sort_order: 4,
+    left_note: 'At the beginning of the semester, I thought community engagement was something that had to take a lot of time. Our project with Ken Garff for Good started to change that.',
+    reflection: 'Working on Champion Schools 34 gave me a better understanding of the challenges Utah high schoolers face. That helps me in how I show up when I teach classes and support new freshmen.\n\nI also have a better picture of how many organizations I can learn from, donate to, and prioritize. I want to keep going to events and putting myself in places where I am learning new perspectives, not just the same ones I already have.'
+  },
+  {
+    id: 'book-whiteboard', shelf: 'vision', kind: 'leadership', title: 'The Whiteboard', context: 'Learning to think as a group', principle: 'Craft & Share a Compelling Vision', cover_color: '#8a4f6b', sort_order: 4,
+    left_note: 'Everyone on our team had a different idea of what the schools needed, and so did the educators we talked to. Coming to recommendations was not easy.',
+    reflection: 'It took long discussions around a whiteboard, and questioning the why behind each new strategy, before we could come up with recommendations that could positively change the structure of the business and serve Utah students and their teachers best.\n\nAt the start of the semester, I thought strategy was only about finding the right problem. Now I think it is also about learning to think as a group and not alone.'
   }
 ];
 
@@ -781,16 +841,28 @@ function isEditorMode() {
   return new URLSearchParams(window.location.search).get('edit') === '1';
 }
 
-function savedEntries() {
-  try {
-    const saved = JSON.parse(window.localStorage.getItem(editStorageKey) || 'null');
-    if (saved && Array.isArray(saved.entries)) return saved.entries;
-  } catch (error) {}
+const STARTER_VERSION = 3;
+
+function starterWithIds() {
   return starterEntries.map(function (entry, index) { return Object.assign({ id: 'book-' + index }, entry); });
 }
 
+function savedEntries() {
+  const starters = starterWithIds();
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(editStorageKey) || 'null');
+    if (saved && Array.isArray(saved.entries)) {
+      if (saved.v === STARTER_VERSION) return saved.entries;
+      const starterIds = starters.map(function (entry) { return entry.id; });
+      const mine = saved.entries.filter(function (entry) { return starterIds.indexOf(entry.id) === -1; });
+      return starters.concat(mine);
+    }
+  } catch (error) {}
+  return starters;
+}
+
 function saveEntries() {
-  try { window.localStorage.setItem(editStorageKey, JSON.stringify({ entries: state.entries })); } catch (error) {}
+  try { window.localStorage.setItem(editStorageKey, JSON.stringify({ v: STARTER_VERSION, entries: state.entries })); } catch (error) {}
 }
 
 const state = {
@@ -917,11 +989,15 @@ function motesHtml(count) {
   return '<div class="motes" aria-hidden="true">' + html + '</div>';
 }
 
+function ribbonHtml(entry) {
+  return entry.badge ? '<i class="ribbon" title="' + escapeHtml(entry.badge) + '"></i>' : '';
+}
+
 function spineSize(title, width) {
   const longest = Math.max.apply(null, String(title).split(/\s+/).map(function (word) { return word.length; }));
   let px = Math.min(14, (width - 22) / (Math.max(longest, 4) * 0.62));
   if (String(title).length > 26) px = Math.min(px, 11.5);
-  return (Math.max(px, 9.5) / 16).toFixed(3) + 'rem';
+  return (Math.max(px, 10.5) / 16).toFixed(3) + 'rem';
 }
 
 const shelfProps = {
@@ -930,6 +1006,111 @@ const shelfProps = {
   cup: '<svg class="prop prop-cup" viewBox="0 0 70 60" aria-hidden="true"><path class="steam" d="M26 22 C20 15 32 11 26 3"/><path class="steam" style="animation-delay:.9s" d="M37 22 C31 15 43 11 37 3"/><path d="M14 28 H48 V38 C48 48 40 52 31 52 C22 52 14 48 14 38Z" fill="#efe3c8"/><path d="M48 31 C58 31 58 44 47 44" fill="none" stroke="#efe3c8" stroke-width="4"/><ellipse cx="31" cy="55" rx="26" ry="4" fill="#d8c9a6"/></svg>'
 };
 const shelfPropOrder = ['stack', 'plant', 'cup', 'stack', 'plant', 'cup'];
+
+const notes = {
+  letter: {
+    eyebrow: 'A letter before you come in',
+    title: 'What this semester taught me',
+    intro: ['This library is my strategic leadership plan, but it does not look like a normal plan. It is a collection of moments I can go back to, and this is the story of how they fit together.'],
+    sections: [
+      { h: 'How I think about strategy now', p: ['At the start of the semester, I thought strategy was only about finding the right problem. That still matters. On our Ken Garff for Good project, my team tried to solve everything at once, and the real work was choosing the one thing that would actually help.', 'What changed my mind was how we got there. It took long conversations around a whiteboard and asking why behind every idea. Now I think strategy is about learning to think as a group and not alone.'] },
+      { h: 'How I think about community', p: ['I used to think community engagement had to take a lot of time. Now I see how many organizations I can learn from, donate to, and make a priority, even in small ways.', 'Our project showed me the challenges Utah high schoolers face, and that changes how I show up when I teach classes and support new freshmen. I want to keep going to events and putting myself in places where I hear perspectives that are not my own.'] },
+      { h: 'What working with different people taught me', p: ['Our team 360 was a breakthrough for me. I thought two of my classmates did not have the ability to take ownership and step up. What I learned is that they did not know how to step in, because one of my teammates and I usually showed up with a solution already and did not include them in the brainstorming.', 'Sometimes a team does not struggle because of one person. It struggles because different styles of work rub against each other.'] },
+      { h: 'What I am bringing with me', p: ['My Explorers internship taught me how to take steps on my own and push beyond what would be sufficient. From Trailblazers, I want to take the mindset of finding problems and asking the right questions of my team and of the people I am trying to help.', 'Not always is the person you are talking to the best person to get insights from. I will use that in customer interviews, and in my future classes.'] },
+      { h: 'What stuck with me', list: [
+        ['Choose the smaller problem.', 'The best question we asked all semester was what would actually be the most valuable thing we could do.'],
+        ['Think as a group.', 'Questioning the why behind every idea, out loud, got us further than any one of us would have gotten alone.'],
+        ['Notice how I show up.', 'My style can leave other people no room to contribute, even when I mean well.']
+      ] },
+      { h: 'If I could go back', p: ['During my Goff Explorers internship, I treated my blog posts like a weekly checklist. I picked a topic, wrote the post, and moved on. If I did it again, I would start with questions about the audience, what people were searching for, and how the therapy center used content. I finished the work, but I had not thought enough about the result it was supposed to create.', 'That story is on the shelf with a gold ribbon on its spine.'] },
+      { h: 'What I will do next', p: ['I wrote down what I will do next semester, next year, and in five years. You can find it in the blank book at the end of the reading alcove. That book is also my note to future me, to keep adding to these shelves as I grow.'] }
+    ],
+    sign: 'Rane'
+  },
+  future: {
+    eyebrow: 'The last book on the shelf',
+    title: 'A note to future me',
+    intro: ['Hi, future me. If you are reading this, I hope you have been adding books. This library was never meant to be finished.'],
+    sections: [
+      { h: 'How to keep adding', p: ['Every time something changes how you lead, give it a book. It can be a mistake, a hard conversation, something that went well, or something you read. Put it on the shelf it belongs to.', 'When you write it, ask yourself what happened, what you learned, and what you would do differently. Those are the better questions. Add a gold ribbon when it is a hindsight story.'] },
+      { h: 'What I said I would do', list: [
+        ['Next semester:', 'When I work with groups, I will facilitate conversations where I learn from my teammates, before I bring my own solution.'],
+        ['Next year:', 'In a product management role, I will stay focused on what would be valuable for my customers, not just what is nice to have.'],
+        ['In five years:', 'I will keep donating, with priorities, and find a community I can give back to and consistently engage with, one that means something to me.']
+      ] },
+      { h: 'Check back', p: ['Read this once a year. Cross some things off, and add new ones. Then go write another book.'] }
+    ],
+    sign: 'Rane'
+  }
+};
+
+function noteHtml(note) {
+  const intro = (note.intro || []).map(function (text) { return '<p class="note-intro">' + escapeHtml(text) + '</p>'; }).join('');
+  const sections = note.sections.map(function (section) {
+    const paras = (section.p || []).map(function (text) { return '<p>' + escapeHtml(text) + '</p>'; }).join('');
+    const list = section.list ? '<ul>' + section.list.map(function (item) { return '<li><strong>' + escapeHtml(item[0]) + '</strong> ' + escapeHtml(item[1]) + '</li>'; }).join('') + '</ul>' : '';
+    return (section.h ? '<h3>' + escapeHtml(section.h) + '</h3>' : '') + paras + list;
+  }).join('');
+  return '<button class="close-book note-close" type="button" aria-label="Close note">×</button><article class="note-card"><p class="eyebrow">' + escapeHtml(note.eyebrow) + '</p><h2>' + escapeHtml(note.title) + '</h2>' + intro + sections + (note.sign ? '<p class="note-sign">' + escapeHtml(note.sign) + '</p>' : '') + '</article>';
+}
+
+function ensureNoteDialog() {
+  let dialog = document.querySelector('#noteDialog');
+  if (dialog) return dialog;
+  dialog = document.createElement('dialog');
+  dialog.id = 'noteDialog';
+  dialog.className = 'note-dialog';
+  dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
+  document.body.appendChild(dialog);
+  return dialog;
+}
+
+function openNote(kind) {
+  const note = notes[kind];
+  if (!note) return;
+  const dialog = ensureNoteDialog();
+  dialog.innerHTML = noteHtml(note);
+  dialog.querySelector('.note-close').addEventListener('click', function () { dialog.close(); });
+  if (!dialog.open) dialog.showModal();
+  dialog.querySelector('.note-card').scrollTop = 0;
+}
+
+function bindNotes() {
+  document.querySelectorAll('[data-note]').forEach(function (button) {
+    button.addEventListener('click', function () { openNote(button.dataset.note); });
+  });
+}
+
+function futureBookHtml() {
+  return '<button class="future-book" type="button" data-note="future" data-tip="My plan, and how to keep adding books"><span class="plus">✦</span><span>A note to future me</span></button>';
+}
+
+function mountOwl() {
+  if (document.querySelector('.owl-wrap')) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'owl-wrap';
+  wrap.innerHTML = [
+    '<div class="owl-bubble" id="owlBubble" role="tooltip"><p><strong>Welcome to my library.</strong></p>',
+    '<p>Each shelf is one of the six leadership ideas from Trailblazers, and each book is a real moment that changed how I lead.</p>',
+    '<p>Hover over a book to peek at it, and click to read it. A gold ribbon marks a hindsight story. The reading alcove holds books that shaped my thinking, and the blank book at the end is a note to future me.</p>',
+    '<p>I keep adding books as I grow.</p></div>',
+    '<button class="owl" type="button" aria-label="About this library" aria-describedby="owlBubble"><svg viewBox="0 0 80 92" aria-hidden="true" focusable="false">',
+    '<path d="M16 50 C5 60 9 80 22 84 C25 72 23 60 16 50Z" fill="#5f4429"/><path d="M64 50 C75 60 71 80 58 84 C55 72 57 60 64 50Z" fill="#5f4429"/>',
+    '<ellipse cx="40" cy="56" rx="26" ry="30" fill="#7a5a3c"/><ellipse cx="40" cy="63" rx="16" ry="21" fill="#ead6aa"/>',
+    '<path d="M31 56 q4 4 8 0 q4 4 8 0 M29 66 q5 4 11 0 q6 4 11 0 M33 76 q7 4 14 0" fill="none" stroke="#b89a68" stroke-width="1.6" stroke-linecap="round"/>',
+    '<path d="M15 32 L11 8 L29 22Z" fill="#6a4c31"/><path d="M65 32 L69 8 L51 22Z" fill="#6a4c31"/><ellipse cx="40" cy="35" rx="25" ry="21" fill="#8d6a47"/>',
+    '<circle cx="30" cy="35" r="10" fill="#fff3d0"/><circle cx="50" cy="35" r="10" fill="#fff3d0"/><circle cx="31" cy="36" r="5" fill="#2c1b0d"/><circle cx="49" cy="36" r="5" fill="#2c1b0d"/><circle cx="33" cy="34" r="1.6" fill="#fff"/><circle cx="51" cy="34" r="1.6" fill="#fff"/>',
+    '<ellipse class="lid" cx="30" cy="35" rx="10.5" ry="10.5" fill="#8d6a47"/><ellipse class="lid" cx="50" cy="35" rx="10.5" ry="10.5" fill="#8d6a47"/>',
+    '<path d="M40 40 L36 48 L40 53 L44 48Z" fill="#e0a23a"/><path d="M28 85 h8 M44 85 h8" stroke="#e0a23a" stroke-width="3.5" stroke-linecap="round"/>',
+    '</svg></button>'
+  ].join('');
+  document.body.appendChild(wrap);
+  const owl = wrap.querySelector('.owl');
+  owl.addEventListener('click', function (event) { event.stopPropagation(); wrap.classList.toggle('open'); });
+  document.addEventListener('click', function () { wrap.classList.remove('open'); });
+  document.addEventListener('keydown', function (event) { if (event.key === 'Escape') wrap.classList.remove('open'); });
+}
+
 
 function wireTips() {
   let tip = document.querySelector('.book-tip');
@@ -960,7 +1141,7 @@ function renderEntry() {
   if (oldTip) oldTip.classList.remove('on');
   app.innerHTML = [
     '<section class="entry">', starField(64), '<i class="shooting-star" aria-hidden="true"></i><div class="moon"></div><div class="entry-copy">',
-    '<p class="eyebrow">A strategic leadership plan</p><h1>' + escapeHtml(state.title) + '</h1><p>' + escapeHtml(state.subtitle) + '</p></div>',
+    '<p class="eyebrow">A strategic leadership plan</p><h1>' + escapeHtml(state.title) + '</h1><p>' + escapeHtml(state.subtitle) + '</p><button class="letter-button" type="button" data-note="letter">✉ Read my letter first</button></div>',
     libraryIllustration(), isEditorMode() ? '<button class="edit-book" id="openAdmin" type="button">Journal editor</button>' : '',
     '<p class="entry-note">Click the door to enter.</p></section>'
   ].join('');
@@ -973,6 +1154,7 @@ function renderEntry() {
   });
   const adminButton = document.querySelector('#openAdmin');
   if (adminButton) adminButton.addEventListener('click', renderAdmin);
+  bindNotes();
 }
 
 function coverStyle(entry) { return '--book:' + escapeHtml(entry.cover_color || '#536d5c') + ';'; }
@@ -984,10 +1166,10 @@ function shelfHtml(shelf) {
     const height = index % 2 === 0 ? 168 : 187;
     const width = index % 2 === 0 ? 98 : 106;
     const lean = entries.length >= 4 && index === entries.length - 1;
-    return '<button class="spine' + (lean ? ' lean' : '') + '" data-open-book="' + escapeHtml(entry.id) + '" data-tip="' + escapeHtml(entry.context || '') + '" style="' + coverStyle(entry) + '--book-width:' + width + 'px;--book-height:' + height + 'px;--spine-size:' + spineSize(entry.title, width) + '"><span>' + escapeHtml(entry.title) + '</span></button>';
+    return '<button class="spine' + (lean ? ' lean' : '') + '" data-open-book="' + escapeHtml(entry.id) + '" data-tip="' + escapeHtml(entry.context || '') + '" style="' + coverStyle(entry) + '--book-width:' + width + 'px;--book-height:' + height + 'px;--spine-size:' + spineSize(entry.title, width) + '"><span>' + escapeHtml(entry.title) + '</span>' + ribbonHtml(entry) + '</button>';
   }).join('');
   const prop = shelfProps[shelfPropOrder[shelves.indexOf(shelf) % shelfPropOrder.length]] || '';
-  return '<section class="shelf-section"><div class="shelf-heading"><span class="shelf-number">' + shelf.number + '</span><h3>' + escapeHtml(shelf.title) + '</h3></div><div class="shelf-scroll"><div class="wood-shelf">' + books + prop + '<div class="candle" aria-hidden="true"></div></div></div></section>';
+  return '<section class="shelf-section"><div class="shelf-heading"><span class="shelf-number">' + shelf.number + '</span><h3>' + escapeHtml(shelf.title) + '</h3></div>' + (shelf.blurb ? '<p class="shelf-blurb">' + escapeHtml(shelf.blurb) + '</p>' : '') + '<div class="shelf-scroll"><div class="wood-shelf">' + books + prop + '<div class="candle" aria-hidden="true"></div></div></div></section>';
 }
 
 function readingAlcoveHtml() {
@@ -998,9 +1180,9 @@ function readingAlcoveHtml() {
     .map(function (entry, index) {
       const width = widths[index % widths.length];
       const height = heights[index % heights.length];
-      return '<button class="reading-book" data-open-book="' + escapeHtml(entry.id) + '" data-tip="' + escapeHtml(entry.context || '') + '" style="' + coverStyle(entry) + '--book-width:' + width + 'px;--book-height:' + height + 'px;--spine-size:' + spineSize(entry.title, width) + '"><span>' + escapeHtml(entry.title) + '</span></button>';
+      return '<button class="reading-book" data-open-book="' + escapeHtml(entry.id) + '" data-tip="' + escapeHtml(entry.context || '') + '" style="' + coverStyle(entry) + '--book-width:' + width + 'px;--book-height:' + height + 'px;--spine-size:' + spineSize(entry.title, width) + '"><span>' + escapeHtml(entry.title) + '</span>' + ribbonHtml(entry) + '</button>';
     }).join('');
-  return '<section class="reading-alcove"><div class="reading-intro"><h3>The Leadership Reading Alcove</h3><p>These are not all leadership books in the traditional sense. They are books that have made me think about people, power, feedback, courage, identity, and what it means to create something that matters. Each one belongs somewhere in the six-shelf library too.</p></div><div class="reading-scroll"><div class="reading-shelf">' + books + shelfProps.cup + '<div class="candle" aria-hidden="true"></div></div></div></section>';
+  return '<section class="reading-alcove"><div class="reading-intro"><h3>The Leadership Reading Alcove</h3><p>These are not all leadership books in the traditional sense. They are books that have made me think about people, power, feedback, courage, identity, and what it means to create something that matters. Each one belongs somewhere in the six-shelf library too.</p></div><div class="reading-scroll"><div class="reading-shelf">' + books + futureBookHtml() + shelfProps.cup + '<div class="candle" aria-hidden="true"></div></div></div></section>';
 }
 
 function modalHtml() {
@@ -1008,20 +1190,21 @@ function modalHtml() {
 }
 
 function renderInterior() {
-  app.innerHTML = '<section class="interior">' + motesHtml(26) + '<header class="interior-header"><div class="top-actions"><button class="secondary-button" id="backToDoor">← Door</button>' + (isEditorMode() ? '<button class="secondary-button" id="openAdmin">Journal editor</button>' : '') + '</div><p class="eyebrow">The main collection</p><h2>Six shelves for the lessons I am still learning.</h2><p>Each shelf is one strategic leadership principle. Each book is a real moment that changed how I want to show up in my work, my teams, and my life.</p></header><main class="library-content"><p class="library-instruction">Choose a book. It will open when you are ready to read it.</p>' + shelves.map(shelfHtml).join('') + readingAlcoveHtml() + '</main></section>' + modalHtml();
+  app.innerHTML = '<section class="interior">' + motesHtml(26) + '<header class="interior-header"><div class="top-actions"><button class="secondary-button" id="backToDoor">← Door</button><button class="secondary-button" type="button" data-note="letter">✉ My letter</button>' + (isEditorMode() ? '<button class="secondary-button" id="openAdmin">Journal editor</button>' : '') + '</div><p class="eyebrow">The main collection</p><h2>Six shelves for the lessons I am still learning.</h2><p>Each shelf is one strategic leadership principle. Each book is a real moment that changed how I want to show up in my work, my teams, and my life.</p></header><main class="library-content"><p class="library-instruction">Choose a book. It will open when you are ready to read it.</p>' + shelves.map(shelfHtml).join('') + readingAlcoveHtml() + '</main></section>' + modalHtml();
   document.querySelector('#backToDoor').addEventListener('click', renderEntry);
   const adminButton = document.querySelector('#openAdmin');
   if (adminButton) adminButton.addEventListener('click', renderAdmin);
   document.querySelectorAll('[data-open-book]').forEach(function (button) { button.addEventListener('click', function () { openBook(button.dataset.openBook); }); });
   document.querySelector('.close-book').addEventListener('click', closeBook);
   wireTips();
+  bindNotes();
 }
 
 function openBook(id) {
   const entry = state.entries.find(function (item) { return item.id === id; });
   const dialog = document.querySelector('#bookDialog');
   document.querySelector('#leftPage').innerHTML = '<p class="page-label">' + escapeHtml(entry.context || 'A note from this shelf') + '</p><h4>Why this belongs in the library</h4>' + paragraphs(entry.left_note);
-  document.querySelector('#rightPage').innerHTML = '<p class="page-label">The reflection</p><h2>' + escapeHtml(entry.title) + '</h2><span class="principle-chip">' + escapeHtml(entry.principle) + '</span>' + paragraphs(entry.reflection);
+  document.querySelector('#rightPage').innerHTML = '<p class="page-label">The reflection</p><h2>' + escapeHtml(entry.title) + '</h2><span class="principle-chip">' + escapeHtml(entry.principle) + '</span>' + (entry.badge ? '<span class="badge-chip">' + escapeHtml(entry.badge) + '</span>' : '') + paragraphs(entry.reflection);
   document.querySelector('#coverTitle').textContent = entry.title;
   document.querySelector('#turnPage').style.setProperty('--book-cover', entry.cover_color || '#536d5c');
   dialog.classList.remove('opening');
@@ -1084,6 +1267,7 @@ function entryFromForm(entry, form) {
   entry.kind = String(values.get('kind') || 'leadership');
   entry.shelf = String(values.get('shelf') || 'self-awareness');
   entry.principle = String(values.get('principle') || '').trim();
+  entry.badge = String(values.get('badge') || '').trim();
   entry.cover_color = String(values.get('cover_color') || '#506f5d');
   entry.sort_order = Number(values.get('sort_order')) || 99;
   entry.left_note = String(values.get('left_note') || '').trim();
@@ -1104,6 +1288,7 @@ function editorFormHtml(entry) {
     '<div class="field-row"><label>Context or author<input name="context" value="' + escapeHtml(entry.context || '') + '"></label>',
     '<label>Sort order<input name="sort_order" type="number" min="1" value="' + escapeHtml(entry.sort_order || 1) + '"></label></div>',
     '<label>Leadership principle<input name="principle" value="' + escapeHtml(entry.principle || '') + '"></label>',
+    '<label>Ribbon (optional, like Hindsight)<input name="badge" value="' + escapeHtml(entry.badge || '') + '"></label>',
     '<label>Cover color<input name="cover_color" type="color" value="' + escapeHtml(entry.cover_color || '#506f5d') + '"></label>',
     '<label>Why this belongs<textarea name="left_note">' + escapeHtml(entry.left_note || '') + '</textarea></label>',
     '<label>Reflection<textarea name="reflection">' + escapeHtml(entry.reflection || '') + '</textarea></label>',
@@ -1191,6 +1376,7 @@ function renderAdmin() {
   });
 }
 
+mountOwl();
 loadPublishedEntries().finally(renderEntry);
 
 </script>
